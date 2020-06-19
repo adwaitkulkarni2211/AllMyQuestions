@@ -1,7 +1,7 @@
-package Factorial;
+package misc;
 import java.util.*; 
 
-public class basicFactorial {
+public class Factorial {
 	static int findFactorial(int fact, int n)
 	{
 		int i;
