@@ -1,7 +1,7 @@
 package linkedList;
 
 public class IntroToLinkedList<E> {
-	static class Node<E> {
+	public static class Node<E> {
 		public E data;
 		public Node<E> next = null;
 		public Node( E data) {
@@ -9,7 +9,7 @@ public class IntroToLinkedList<E> {
 			next = null;
 		}
 	}
-	Node<E> head;
+	 Node<E> head;
 	public void add( E data) {
 		Node<E> toAdd = new Node<E> (data);
 		if(isEmpty()) {
