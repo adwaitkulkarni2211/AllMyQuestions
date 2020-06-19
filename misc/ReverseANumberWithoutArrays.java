@@ -1,5 +1,7 @@
 package misc;
 
+import java.util.Scanner;
+
 public class ReverseANumberWithoutArrays {
 	public static void main(String[] args) 
 	{

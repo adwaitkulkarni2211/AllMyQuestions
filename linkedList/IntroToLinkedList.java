@@ -10,7 +10,7 @@ public class IntroToLinkedList<E> {
 		}
 	}
 	Node<E> head;
-	void add( E data) {
+	public void add( E data) {
 		Node<E> toAdd = new Node<E> (data);
 		if(isEmpty()) {
 			head = toAdd;
@@ -25,17 +25,20 @@ public class IntroToLinkedList<E> {
 	boolean isEmpty() {
 		return head==null;
 	}
-	void print() {
+	 void print() {
 		Node<E> temp = head;		
 		while(temp!=null) {
 			System.out.print(temp.data + " ");
 			temp = temp.next;
 		}
 	}
-	void get( int index)
+	public E get( int index)
 	{
 		Node<E> temp = head;
 		int i=0;
+		if(temp==null) {
+			System.out.println("no element present to remove");
+		} else {
 		while(temp.next!=null) {
 			
 			if(i == index) {
@@ -46,9 +49,21 @@ public class IntroToLinkedList<E> {
 		}
 		if(index>i) {
 			System.out.println("Element does not exist!");
-		} else {
-		System.out.println(temp.data);
 		}
+		}
+		return temp.data;		
+	}
+	public E getLast()
+	{
+		Node<E> temp = head;
+		if(temp==null) {
+			System.out.println("no element present to remove");
+		} else {
+		while(temp.next!=null) {
+			temp = temp.next;
+		}
+		}
+		return temp.data;		
 	}
 	void set(int index, E numberToInsert) {
 		Node<E> temp = head;
@@ -63,17 +78,20 @@ public class IntroToLinkedList<E> {
 		}
 		temp.data = numberToInsert;
 	}
-	void removeLast() {
+	public E removeLast() {
 		Node<E> temp = head;
 		if(temp==null) {
 			System.out.println("no element present to remove");
 		} else if(temp.next==null) {
+			Node<E> toRemove = head;
 			head=null;
-		} else {
-		while(temp.next.next!=null) {			
-			temp = temp.next;			
+			return toRemove.data;
 		}
-		temp.next=null;
-	  }
+			while (temp.next.next != null) {
+				temp = temp.next;
+			}
+			Node<E> toRemove = temp.next;
+			temp.next = null;
+			return toRemove.data;  
 	}
 }
