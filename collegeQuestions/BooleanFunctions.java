@@ -2,126 +2,94 @@ package collegeQuestions;
 import java.util.*;
 public class BooleanFunctions {
 	
-	public static void union(int[] a, int[] b) {
+	public static List<Integer> union(List<Integer> a, List<Integer> b) {
 		List<Integer> uni = new ArrayList<>();
-		for(int i=0;i<a.length;i++) {
-			uni.add(a[i]);
+		for(int i=0;i<a.size();i++) {
+			uni.add(a.get(i));
 		}
 		
-		for(int i=0;i<b.length;i++) {
+		for(int i=0;i<b.size();i++) {
 			boolean isPresent = false;
 			for(int j=0;j<uni.size();j++) {
-				if(uni.get(j)==b[i]) {
+				if(uni.get(j)==b.get(i)) {
 					isPresent = true;
 					break;
 				}
 			}
 			if(!isPresent)
-				uni.add(b[i]);
+				uni.add(b.get(i));
 		}
-		
-		Integer[] array = uni.toArray(new Integer[0]);
-		Arrays.sort(array);
-		  for (Integer n : array) {
-	            System.out.print(n + " ");
-	        }
+		Collections.sort(uni);
+		  return uni;
 	}
 	
-	public static void intersection(int[] a, int[] b) {
+	public static List<Integer> intersection(List<Integer> a, List<Integer> b) {
 		List<Integer> inter = new ArrayList<>();
 		
-		for(int i=0;i<a.length;i++) {
-			for(int j=0;j<b.length;j++) {
-				if(a[i]==b[j]) {
-					inter.add(a[i]);
+		for(int i=0;i<a.size();i++) {
+			for(int j=0;j<b.size();j++) {
+				if(a.get(i)==b.get(j)) {
+					inter.add(a.get(i));
 					break;
 				}
 			}
 		}
-		
-		Integer[] array = inter.toArray(new Integer[0]);
-		Arrays.sort(array);
-		  for (Integer n : array) {
-	            System.out.print(n + " ");
-	        }
+		return inter;
 	}
 	
-	public static void difference(int[] a, int[] b) {
+	public static List<Integer> difference(List<Integer> a, List<Integer> b) {
 		List<Integer> diff = new ArrayList<>();
 		
-		for(int i=0;i<a.length;i++) {
+		for(int i=0;i<a.size();i++) {
 			boolean present = false;
-			for(int j=0;j<b.length;j++) {
-				if(a[i]==b[j]) {
+			for(int j=0;j<b.size();j++) {
+				if(a.get(i)==b.get(j)) {
 					present = true;
 					break;
 				}
 			}
 			if(!present)
-				diff.add(a[i]);
+				diff.add(a.get(i));
 		}
-		
-		Integer[] array = diff.toArray(new Integer[0]);
-		Arrays.sort(array);
-		  for (Integer n : array) {
-	            System.out.print(n + " ");
-	        }
+		return diff;
 	}
 	
-	public static void symDifference(int[] a, int[] b) {
+	public static List<Integer> symDifference(List<Integer> a, List<Integer> b) {
 		List<Integer> diff1 = new ArrayList<>();
 		List<Integer> diff2 = new ArrayList<>();
-		for(int i=0;i<a.length;i++) {
-			boolean present = false;
-			for(int j=0;j<b.length;j++) {
-				if(a[i]==b[j]) {
-					present = true;
-					break;
-				}
-			}
-			if(!present)
-				diff1.add(a[i]);
-		}
-		for(int i=0;i<b.length;i++) {
-			boolean present = false;
-			for(int j=0;j<a.length;j++) {
-				if(b[i]==a[j]) {
-					present = true;
-					break;
-				}
-			}
-			if(!present)
-				diff2.add(b[i]);
-		}
-		int a1[] = new int[diff1.size()];
-		int a2[] = new int[diff2.size()];
-		for(int i=0;i<a1.length;i++) {
-			a1[i] = diff1.get(i);
-		}
-		for(int i=0;i<a2.length;i++) {
-			a2[i] = diff2.get(i);
-		}
-		union(a1,a2);
+		List<Integer> symDiff = new ArrayList<>();
+		diff1 = difference(a,b);
+		diff2 = difference(b,a);
+		symDiff = union(diff1,diff2);
+		return symDiff;
+	}
+	public static void display(List<Integer> a) {
+		System.out.print(a);
+		System.out.println();
 	}
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
+		List<Integer> a = new ArrayList<>();
+		List<Integer> b = new ArrayList<>();
+		List<Integer> ans = new ArrayList<>();
 		int n = sc.nextInt();
 		int m = sc.nextInt();
-		int a[] = new int[n];
-		int b[] = new int[m];
 		for(int i=0;i<n;i++) {
-			a[i] = sc.nextInt();
+			int x = sc.nextInt();
+			a.add(x);
 		}
 		for(int i=0;i<m;i++) {
-			b[i] = sc.nextInt();
+			int x = sc.nextInt();
+			b.add(x);
 		}
-		union(a,b);
-		System.out.println();
-		intersection(a,b);
-		System.out.println();
-		difference(a,b);
-		System.out.println();
-		symDifference(a,b);
+		sc.close();
+		ans = union(a,b);
+		display(ans);
+		ans = intersection(a,b);
+		display(ans);
+		ans = difference(a,b);
+		display(ans);
+		ans = symDifference(a,b);
+		display(ans);
 	}
-
 }
