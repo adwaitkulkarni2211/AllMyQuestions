@@ -9,20 +9,21 @@ public class ProperOddStarsPyramidWithSpaces {
 		int i, j;
 		System.out.println("Enter a number: ");
 		int n = sc.nextInt();
-		int k = n;
-		int p = 0;
+		//int k = n;
+		//int p = 0;
         for(i=0;i<n;i++)
         {
-        	for(j=0;j<k-1;j++)
+        	for(j=0;j<n-1;j++)
         	{
+        		if(j>=i)
         		System.out.print("  ");
         	}
-        	k--;
-        	for(j=0;j<=p;j++)
+        	//k--;
+        	for(j=0;j<(2*i)+1;j++)
         	{
         		System.out.print("* ");
         	}
-        	p+=2;
+        	//p+=2;
         	System.out.println();
         }
 

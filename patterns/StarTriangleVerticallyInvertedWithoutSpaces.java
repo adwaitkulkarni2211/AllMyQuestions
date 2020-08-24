@@ -9,14 +9,14 @@ public class StarTriangleVerticallyInvertedWithoutSpaces {
 		int i,j;
 		System.out.println("Enter a number: ");
 		int n = sc.nextInt();
-		int k = n;
+		//int k = n;
 		for(i=0;i<n;i++)
 		{
-			for(j=0;j<k;j++)
+			for(j=0;j<n-i;j++)
 			{
 				System.out.print("* ");
 			}
-			k--;
+			//k--;
 			System.out.println();
 		}
 

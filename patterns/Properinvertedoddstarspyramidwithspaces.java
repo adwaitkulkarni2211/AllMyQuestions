@@ -6,17 +6,15 @@ public class Properinvertedoddstarspyramidwithspaces {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner (System.in);
-		int i, j;
 		System.out.println("Enter a number: ");
-		int n = sc.nextInt();
-		int p = 2*n - 1;
-        for(i=0;i<n;i++)
+		int n = sc.nextInt(), p = 2*n - 1;
+        for(int i=0;i<n;i++)
         {
-        	for(j=0;j<i;j++)
+        	for(int j=0;j<i;j++)
         	{
         		System.out.print("  ");
         	}
-        	for(j=0;j<p;j++)
+        	for(int j=0;j<p;j++)
         	{
         		System.out.print("* ");
         	}
