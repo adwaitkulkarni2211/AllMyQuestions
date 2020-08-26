@@ -53,9 +53,18 @@ public class MatrixMultiplication {
 				}
 				System.out.println();
 			}
+			System.out.println("Diagonal elements: ");
+			for(i=0;i<m1;i++)
+			{
+				for(j=0;j<n2;j++)
+				{
+					if(i==j || j==n2-1-i)
+						System.out.print(c[i][j]+ "  ");
+					else
+						System.out.print("    ");
+				}
+				System.out.println();
+			}			
 		}
-
-
 	}
-
 }

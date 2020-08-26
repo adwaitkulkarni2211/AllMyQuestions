@@ -9,10 +9,12 @@ public class SeriesSumInJava {
 		System.out.println("Enter a positive integer:");
 		double i,a=1;
 		double n = sc.nextInt();
+		sc.close();
 		for(i=2;i<=n;i++)
 		{
 			a = a + (1/i);
 		}
 		System.out.println(a);
+		
 	}
 }

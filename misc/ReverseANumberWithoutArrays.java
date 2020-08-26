@@ -5,16 +5,15 @@ import java.util.Scanner;
 public class ReverseANumberWithoutArrays {
 	public static void main(String[] args) 
 	{
-		Scanner sc = new Scanner (System.in);
-		int i, j,mul = 0;
+		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter a number: ");
-		int n = sc.nextInt();
-		while(n>0)
-		{
-			j = n % 10;
-			n = n / 10;
-			mul = mul*10 + j;
+		long n = sc.nextInt(), temp = n, num = 0;
+		while(temp != 0) {
+			int r = (int)temp % 10;
+			num = (num * 10) + r;
+			temp = temp / 10;
 		}
-		System.out.println(mul);
+		System.out.println(num);
+		sc.close();
     }
 }

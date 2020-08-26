@@ -15,6 +15,7 @@ public class BubbleSort {
 	    {
 	            a[i] = sc.nextInt();
         }
+	    sc.close();
 	    for(i=0;i<n-1;i++) //up to n-1 as the last element gets sorted in the first iteration
 	    {
 	    	boolean sorted = true; //to stop the loop as soon as the array is sorted
@@ -38,5 +39,6 @@ public class BubbleSort {
 	    System.out.println("The sorted array is:");
 	    for(int item: a)                             //enhanced for loop
 	    	System.out.print(" "+ item);
+	   
     }
 }

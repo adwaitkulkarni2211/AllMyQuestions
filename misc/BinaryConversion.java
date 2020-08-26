@@ -5,6 +5,9 @@ public class BinaryConversion {
 	        List<Integer> r = new ArrayList<>();
 	        for (int i = 0; ; i++)
 	        {
+	        	if(i==0) {
+	        		System.out.println();
+	        	}
 	            r.add(q%2);
 	            q = q / 2;
 	            if (q == 0)

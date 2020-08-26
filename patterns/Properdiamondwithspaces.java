@@ -7,7 +7,7 @@ public class Properdiamondwithspaces {
 		
 		System.out.println("Enter a number: ");
 		int n = sc.nextInt(), p = (2*n - 1);
-		
+		sc.close();
         for(int i=0;i<(2*n)-1;i++) {
         	
         	if(i<(p/2)+1) {

@@ -6,6 +6,7 @@ public class BinaryToGray {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter a bunary number: ");
 		int n = sc.nextInt();
+		sc.close();
 		int temp = n, r;
 		List<Integer> binary = new ArrayList<>();
 		List<Integer> gray = new ArrayList<>();

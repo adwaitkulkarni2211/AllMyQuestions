@@ -7,7 +7,7 @@ public class Pallindromepyramidofnumbers {
 		Scanner sc = new Scanner (System.in);
 		System.out.println("Enter a number: ");		
 		int n = sc.nextInt(), i, j;
-		
+		sc.close();
         for(i=0;i<n;i++) {
     		int b = n-1, a = n - i;
     		

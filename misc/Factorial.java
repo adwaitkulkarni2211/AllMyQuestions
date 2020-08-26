@@ -16,6 +16,7 @@ public class Factorial {
 		int fact=1, n, t;
 		System.out.println("Enter a number: ");
 		n = sc.nextInt();
+		sc.close();
 		t = findFactorial(fact, n);
 		System.out.println("The Factorail is: " + t);
 	}
