@@ -48,8 +48,8 @@ public class Bulbs {
 		Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         sc.close();
-        //bruteForce(n);
-       // System.out.println();
+        bruteForce(n);
+       System.out.println();
         optimised(n);
 	}
 
