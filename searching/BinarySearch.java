@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class BinarySearch {
 
-	static int bin_search(int a[], int k) {
+	public static int bin_search(int a[], int k) {
 		int med,left, right;
 	    left = 0; right = a.length - 1;
 	    while(left<=right) {
@@ -21,16 +21,16 @@ public class BinarySearch {
 
 	public static void main(String[] args) {
 	    Scanner sc = new Scanner(System.in);
-				int i;
-				int n = sc.nextInt();
-				int a[] = new int[n];
-				for(i=0;i<n;i++) {
-					a[i] = sc.nextInt();
-				}
-				int x = sc.nextInt();
-				int shit = bin_search(a, x);
-				System.out.println(shit);
-				sc.close();
+		int i;
+		int n = sc.nextInt();
+		int a[] = new int[n];
+		for(i=0;i<n;i++) {
+			a[i] = sc.nextInt();
+		}
+		int x = sc.nextInt();
+		int shit = bin_search(a, x);
+		System.out.println(shit);
+		sc.close();
 	}
 
 }
