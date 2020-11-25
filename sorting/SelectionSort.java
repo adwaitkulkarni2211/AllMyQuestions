@@ -9,6 +9,7 @@ public class SelectionSort {
 		int i, j,n,small=0,temp;
 		System.out.println("Enter the length of array: ");
 		n = sc.nextInt();
+		sc.close();
 		int a[] = new int[n];
 	    System.out.println("Enter all the elements:");
 	    for(i = 0; i < n; i++)
