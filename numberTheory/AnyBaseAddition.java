@@ -1,4 +1,4 @@
-package misc;
+package numberTheory;
 import java.util.*;
 public class AnyBaseAddition {
 	public static void main(String[] args) {
@@ -14,7 +14,7 @@ public class AnyBaseAddition {
     public static int getSum(int b, int n1, int n2) {
         int sum = 0, power = 0, dig = 0, place = 0;
         while (n1 != 0 || n2 != 0) {
-            dig += (n1 % 10) + (n2 % 10);
+            dig = dig + (n1 % 10) + (n2 % 10);
             if (dig >= b) {
                 place = dig - b;
                 dig = 1;
@@ -24,9 +24,9 @@ public class AnyBaseAddition {
             }
             System.out.print("dig: "+ dig);
             sum += place * (int)(Math.pow(10, power));
-            power++;
             System.out.print("  sum: "+ sum);
-            System.out.print("  count: "+power + "\n");
+            System.out.print("  power: "+power + "\n");
+            power++;
             n1 = n1 / 10;
             n2 = n2 / 10;
         }

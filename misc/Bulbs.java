@@ -13,7 +13,7 @@ public class Bulbs {
 		System.out.print(1+ " ");
         for (int i = 1; i <= n; i++) {
             int bulbs = 1;
-            for (int j = 1; j <= n; j++) {
+            for (int j = 1; j <= i; j++) {
                 if (i % j == 0 && j != 1) {
                     if (bulbs == 0) {
                         bulbs = 1;

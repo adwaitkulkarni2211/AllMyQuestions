@@ -1,9 +1,9 @@
-package misc;
+package numberTheory;
 import java.util.*;
 public class DecimalToAnyBase {
 	public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Enter a decimal number and the base you wanto convert it to: ");
+        System.out.println("Enter a decimal number and the base you want to convert it to: ");
         int n = sc.nextInt(), b = sc.nextInt();
         sc.close();
         System.out.println(getValueInBase(n, b));
@@ -14,6 +14,7 @@ public class DecimalToAnyBase {
         while(temp != 0) {
             int r = temp % b;
             sum = sum + r * (int)(Math.pow(10, power));
+            System.out.println("Sum: " + sum);
             power++;
             temp = temp / b;
         }

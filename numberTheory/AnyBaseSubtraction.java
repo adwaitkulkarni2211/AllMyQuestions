@@ -1,4 +1,4 @@
-package misc;
+package numberTheory;
 import java.util.*;
 public class AnyBaseSubtraction {
 	

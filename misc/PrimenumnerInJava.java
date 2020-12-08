@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class PrimenumnerInJava {
 	public static boolean isPrime(int a) {
-        boolean Prime = true;
+        //boolean Prime = true;
         for (int i = 2; i * i <= a; i++) {
             if (a % i == 0) {
                 return false;

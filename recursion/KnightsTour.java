@@ -6,6 +6,7 @@ public class KnightsTour {
         int n = sc.nextInt();
         int[][] chess = new int[n][n];
         int row = sc.nextInt(), col = sc.nextInt();
+        sc.close();
         printKnightsTour(chess, row, col, 0);
 
     }
