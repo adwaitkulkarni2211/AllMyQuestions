@@ -456,6 +456,40 @@ public class GenericTreeCreation {
         return dch;
     }
     
+    static class Pair2 {
+        Node node;
+        int state;
+        Pair2(Node node, int state) {
+            this.node = node;
+            this.state = state;
+        }
+    }
+    
+    public static void IterativePreandPostOrder(Node node) {
+        Stack < Pair2 > st = new Stack < > ();
+        st.push(new Pair2(node, -1));
+        String pre = "";
+        String post = "";
+        while (st.size() > 0) {
+            Pair2 top = st.peek();
+
+            if (top.state == -1) {
+                pre += top.node.data + " ";
+                top.state++;
+            } else if (top.state == top.node.children.size()) {
+                post += top.node.data + " ";
+                st.pop();
+            } else {
+                Pair2 cp = new Pair2(top.node.children.get(top.state), -1);
+                st.push(cp);
+                top.state++;
+            }
+        }
+        System.out.println(pre);
+        System.out.println(post);
+
+    }
+    
     public static void main(String[] args) throws Exception {
     	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
