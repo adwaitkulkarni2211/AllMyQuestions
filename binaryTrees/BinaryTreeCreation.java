@@ -501,6 +501,8 @@ public class BinaryTreeCreation {
     static class BSTPair {
         int min, max;
         boolean isBST;
+        Node lbstroot = null;
+        int lbstsize = 0;
     }
     public static BSTPair isBST1(Node node) {
         if(node == null) {
@@ -560,6 +562,66 @@ public class BinaryTreeCreation {
         balPair mp = new balPair();
         mp.isBal = Math.abs(lp.ht - rp.ht) <= 1 && lp.isBal && rp.isBal;
         mp.ht = Math.max(lp.ht, rp.ht) + 1;
+        return mp;
+    }
+    
+    static class bst {
+        int size = 0;
+        Node root = null;
+    }
+    
+    static bst ans = new bst();
+    static int maxSize = Integer.MIN_VALUE;
+    public static void lbs(Node node) {
+        if(node == null) {
+            return;
+        }
+        
+        lbs(node.left);
+        lbs(node.right);
+        
+        BSTPair check = isBST1(node);
+        if(check.isBST == true) {
+            int s = size(node);
+            //System.out.println("node: " + node.data + " size: " + s);
+            if(s > maxSize) {
+                maxSize = s;
+                ans.size = s;
+                ans.root = node;
+            }
+        }
+    }
+    //combining lbs and isBST:
+    public static BSTPair isBSTAndLBSCombined(Node node) {
+        if (node == null) {
+            BSTPair bp = new BSTPair();
+            bp.min = Integer.MAX_VALUE;
+            bp.max = Integer.MIN_VALUE;
+            bp.isBST = true;
+            bp.lbstroot = null;
+            bp.lbstsize = 0;
+            return bp;
+        }
+
+        BSTPair lp = isBSTAndLBSCombined(node.left);
+        BSTPair rp = isBSTAndLBSCombined(node.right);
+
+        BSTPair mp = new BSTPair();
+        mp.min = Math.min(node.data, Math.min(lp.min, rp.min));
+        mp.max = Math.max(node.data, Math.max(lp.max, rp.max));
+        mp.isBST = lp.isBST && rp.isBST && node.data >= lp.max && node.data <= rp.min;
+
+        if (mp.isBST) {
+            mp.lbstroot = node;
+            mp.lbstsize = lp.lbstsize + rp.lbstsize + 1;
+        } else if (lp.lbstsize > rp.lbstsize) {
+            mp.lbstroot = lp.lbstroot;
+            mp.lbstsize = lp.lbstsize;
+        } else {
+            mp.lbstroot = rp.lbstroot;
+            mp.lbstsize = rp.lbstsize;
+        }
+
         return mp;
     }
     
