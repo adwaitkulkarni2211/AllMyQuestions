@@ -1,101 +1,68 @@
 package hashMapAndHeap;
 import java.io.*;
 import java.util.*;
-
-import hashMapAndHeap.GenericHeap_ComparatorAndComparable.Student;
 public class WritePriorityQueueUsingHeap {
-	public static class PriorityQueue<T> {
-        ArrayList<T> data;
-        Comparator comp;
+	public static class PriorityQueue {
+        ArrayList < Integer > data;
 
         public PriorityQueue() {
-            data = new ArrayList<>();
-            comp = null;
+            data = new ArrayList < > ();
         }
-        
-        public PriorityQueue(Comparator comp) {
-            data = new ArrayList<>();
-            this.comp = comp;
-        }
-        
-        private boolean isSmaller(int i, int j) {
-        	if(comp == null) {
-        		Comparable ith = (Comparable)data.get(i);
-            	Comparable jth = (Comparable)data.get(j);
-            	if(ith.compareTo(jth) < 0) {
-            		return true;
-            	} else {
-            		return false;
-            	}
-        	} else {
-        		T ith = data.get(i);
-            	T jth = data.get(j);
-        		if(comp.compare(ith, jth) < 0) {
-            		return true;
-            	} else {
-            		return false;
-            	}
-        	}
-        	
-        }
-        
-        public void add(T val) {
+
+        public void add(int val) {
             data.add(val);
-            
-            int i = data.size() - 1;
-            upheapify(i);
+            upheapify(data.size() - 1);
         }
         private void upheapify(int i) {
-            if(i == 0) {
+            if (i == 0) {
                 return;
             }
-            
+
             int pi = (i - 1) / 2;
-            if(isSmaller(i, pi)) {
-                swap(pi, i);
+            if (data.get(i) < data.get(pi)) {
+                swap(i, pi);
                 upheapify(pi);
             }
         }
-        private void swap(int i, int j) {
-            T ith = data.get(i);
-            T jth = data.get(j);
+        public void swap(int i, int j) {
+            int ith = data.get(i);
+            int jth = data.get(j);
             data.set(i, jth);
             data.set(j, ith);
         }
 
-        public T remove() {
-            if(this.size() == 0) {
+        public int remove() {
+            if (this.size() == 0) {
                 System.out.println("Underflow");
-                return null;
+                return -1;
             }
             swap(0, data.size() - 1);
-            T val = data.remove(data.size() - 1);
+            int ret = data.remove(data.size() - 1);
             downheapify(0);
-            return val;
+            return ret;
         }
         private void downheapify(int pi) {
             int min = pi;
-            
+
             int li = (2 * pi) + 1;
-            if(li < data.size() && isSmaller(li, min) == true) {
+            if (li < data.size() && data.get(li) < data.get(min)) {
                 min = li;
             }
-            
+
             int ri = (2 * pi) + 2;
-            if(ri < data.size() && isSmaller(ri, min) == true) {
+            if (ri < data.size() && data.get(ri) < data.get(min)) {
                 min = ri;
             }
-            
-            if(min != pi) {
+
+            if (min != pi) {
                 swap(pi, min);
                 downheapify(min);
             }
         }
-
-        public T peek() {
-            if(this.size() == 0) {
+        public int peek() {
+            if (this.size() == 0) {
                 System.out.println("Underflow");
-                return null;
+                return -1;
             }
             return data.get(0);
         }
@@ -103,34 +70,36 @@ public class WritePriorityQueueUsingHeap {
         public int size() {
             return data.size();
         }
+        public void display() {
+            System.out.println(data);
+        }
     }
-	
-	static class StudentHtComparator implements Comparator<Student> {
-		public int compare(Student s1, Student s2) {
-			return s1.ht - s2.ht;
-		}
-	}
-	
-	static class StudentWtComparator implements Comparator<Student> {
-		public int compare(Student s1, Student s2) {
-			return s1.wt - s2.wt;
-		}
-	}
 
     public static void main(String[] args) throws Exception {
-    	int[] a = {10, 2, 17, 3, 18, 9, 22};
-		System.out.println(a);
-		//comparing on the basis of weight using StudentWtComparator
-		PriorityQueue<Student> pq = new PriorityQueue<>(new StudentWtComparator());
-		pq.add(new Student(10, 190, 89));
-		pq.add(new Student(20, 165, 65));
-		pq.add(new Student(1, 170, 73));
-		pq.add(new Student(40, 160, 55));
-		pq.add(new Student(16, 169, 67));
-		
-		while(pq.size() > 0) {
-			System.out.println(pq.peek());
-			pq.remove();
-		}
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        PriorityQueue qu = new PriorityQueue();
+
+        String str = br.readLine();
+        while (str.equals("quit") == false) {
+            if (str.startsWith("add")) {
+                int val = Integer.parseInt(str.split(" ")[1]);
+                qu.add(val);
+            } else if (str.startsWith("remove")) {
+                int val = qu.remove();
+                if (val != -1) {
+                    System.out.println(val);
+                }
+            } else if (str.startsWith("peek")) {
+                int val = qu.peek();
+                if (val != -1) {
+                    System.out.println(val);
+                }
+            } else if (str.startsWith("size")) {
+                System.out.println(qu.size());
+            } else if (str.startsWith("display")) {
+                qu.display();
+            }
+            str = br.readLine();
+        }
     }
 }

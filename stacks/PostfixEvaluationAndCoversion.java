@@ -6,7 +6,6 @@ public class PostfixEvaluationAndCoversion {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String str = br.readLine();
 
-        // code
         Stack < Integer > value = new Stack < > ();
         Stack < String > in = new Stack < > ();
         Stack < String > pre = new Stack < > ();

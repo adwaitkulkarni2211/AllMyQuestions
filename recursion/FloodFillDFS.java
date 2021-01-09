@@ -15,6 +15,12 @@ public class FloodFillDFS {
         sc.close();
         boolean visited[][] = new boolean[n][m];
         floodFill(arr, 0, 0, "", visited);
+        for(int i=0; i<visited.length; i++) {
+        	for(int j=0; j<visited[0].length; j++) {
+            	System.out.print(visited[i][j] +" ");
+            }
+        	System.out.println();
+        }
     }
 
     public static void floodFill(int[][] maze, int row, int col, String psf, boolean[][] visited) {

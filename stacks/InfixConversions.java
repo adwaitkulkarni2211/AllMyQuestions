@@ -6,9 +6,8 @@ public class InfixConversions {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String str = br.readLine();
 
-        // code
         Stack < String > post = new Stack < > ();
-            Stack < String > pre = new Stack < > ();
+        Stack < String > pre = new Stack < > ();
         Stack < Character > ops = new Stack < > ();
         for (int i = 0; i < str.length(); i++) {
             char ch = str.charAt(i);
