@@ -23,6 +23,7 @@ public class Fibonacci {
 		int f1 = fiboMemoized(n-1, q);
 		int f2 = fiboMemoized(n-2, q);
 		q[n] = f1 + f2;
+		System.out.println(q[n]);
 		
 		return q[n];
 	}

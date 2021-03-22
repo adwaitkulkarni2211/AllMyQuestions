@@ -66,8 +66,6 @@ public class SaddlePoint {
             
             if(flag == true) {
             	System.out.println(a[i][least]);
-            	end = System.currentTimeMillis();
-                System.out.println("Sumeet's method: "+ (end - start));
             	return;
             }
         }

@@ -34,9 +34,9 @@ public class HCFandLCM {
         	second = rem;
         }
         int hcf = second;
-        System.out.println(hcf);
+        System.out.println("hcf: " + hcf);
         int lcm = (temp1 * temp2) / hcf;
-        System.out.println(lcm);
+        System.out.println("lcm: " + lcm);
         long endTime = System.currentTimeMillis();
         System.out.println("Time Taken for optimized: " + (endTime - startTime));
         

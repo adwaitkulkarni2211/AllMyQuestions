@@ -19,7 +19,6 @@ public class StringCompression {
         }
         return com;
     }
-	//sumeet's
     public static String compression20(String str) {
         // write your code here
         String com = "";
@@ -40,7 +39,7 @@ public class StringCompression {
         }
         return com;
     }
-	
+	//sumeet's
 	public static String compression1(String str) {
         // write your code here
         String com = "";

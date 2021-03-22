@@ -8,6 +8,11 @@ public class QuickSort {
             return;
         }
         int pivot = partition(arr, arr[hi], lo, hi);
+        System.out.print("The array after partitioning is: ");
+        for(int i=0; i<arr.length; i++) {
+        	System.out.print(arr[i] + " ");
+        }
+        System.out.println();
         quickSort(arr, lo, pivot - 1);
         quickSort(arr, pivot + 1, hi);
     }

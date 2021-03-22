@@ -18,25 +18,25 @@ public class SpiralDisplay {
         while(count < tot) {
             //left wall
             for(int i=minr, j=minc; i<=maxr && count < tot; i++) {
-                System.out.println(a[i][j]);
+                System.out.print(a[i][j] + " ");
                 count++;
             }
             minc++;
             //bottom wall
             for(int i=maxr, j=minc; j<=maxc && count < tot; j++) {
-                System.out.println(a[i][j]);
+                System.out.print(a[i][j] + " ");
                 count++;
             }
             maxr--;
             //right wall
             for(int i=maxr, j=maxc; i>=minr && count < tot; i--) {
-                System.out.println(a[i][j]);
+                System.out.print(a[i][j] + " ");
                 count++;
             }
             maxc--;
             //top wall
             for(int i=minr, j=maxc; j>=minc && count < tot; j--) {
-                System.out.println(a[i][j]);
+                System.out.print(a[i][j] + " ");
                 count++;
             }
             minr++;

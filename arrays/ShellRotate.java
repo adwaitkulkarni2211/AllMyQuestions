@@ -50,26 +50,20 @@ public class ShellRotate {
         k = k % a.length;
         if (k < 0)
             k = k + a.length;
-        System.out.println("Non-Reversed array: ");
-        for(int i=0;i<a.length;i++) {
-        	System.out.print(a[i] + " ");
-        }
-        System.out.println();
         a = reverse(a, 0, a.length - k - 1);
         a = reverse(a, a.length - k, a.length - 1);
         a = reverse(a, 0, a.length - 1);
-        System.out.println("Reversed array: ");
-        for(int i=0;i<a.length;i++) {
-        	System.out.print(a[i] + " ");
-        }
-        System.out.println();
     }
 
     public static int[] fillOnedFromShell(int[][] a, int s) {
         int minr = s - 1, minc = s - 1, idx = 0;
         int maxr = a.length - s, maxc = a[0].length - s;
+        
+        //size = (2 * (maxr - minr + 1)) + (2 * (maxc - minc)) - 4
+        //     = 2maxr - 2minr + 2 + 2maxc - 2minc - 4
+        //     = 2 * (maxr - minr + maxc - minc)
         int sz = 2 * (maxr - minr + maxc - minc);
-
+        System.out.println("size of shell and 1d array: " + sz);
         int[] oned = new int[sz];
 
         //left wall
@@ -77,24 +71,31 @@ public class ShellRotate {
             oned[idx] = a[i][j];
             idx++;
         }
-
+        minc++;
         //bottom wall
-        for (int i = maxr, j = minc + 1; j <= maxc; j++) {
+        for (int i = maxr, j = minc; j <= maxc; j++) {
             oned[idx] = a[i][j];
             idx++;
         }
-
+        maxr--;
         //right wall
-        for (int i = maxr - 1, j = maxc; i >= minr; i--) {
+        for (int i = maxr, j = maxc; i >= minr; i--) {
             oned[idx] = a[i][j];
             idx++;
         }
-
+        maxc--;
         //top wall
-        for (int i = minr, j = maxc - 1; j >= minc + 1; j--) {
+        for (int i = minr, j = maxc; j >= minc; j--) {
             oned[idx] = a[i][j];
             idx++;
         }
+        minr++;
+        
+        System.out.println("The 1d array is: ");
+        for(int i=0; i<oned.length; i++) {
+        	System.out.print(oned[i] + " ");
+        }
+        System.out.println("\n");
         return oned;
     }
 

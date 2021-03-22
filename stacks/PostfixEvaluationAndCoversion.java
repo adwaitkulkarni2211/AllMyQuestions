@@ -30,6 +30,7 @@ public class PostfixEvaluationAndCoversion {
                 value.push((int) ch - '0'); in .push(ch + "");
                 pre.push(ch + "");
             }
+            System.out.println(value);
         }
         System.out.println(value.pop());
         System.out.println(in.pop());

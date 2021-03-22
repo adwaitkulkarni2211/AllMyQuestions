@@ -49,7 +49,7 @@ public class Bulbs {
         int n = sc.nextInt();
         sc.close();
         bruteForce(n);
-       System.out.println();
+        System.out.println();
         optimised(n);
 	}
 

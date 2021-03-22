@@ -1,6 +1,19 @@
 package genericTrees;
 import java.util.*;
 import java.io.*;
+
+class Node {
+	int data;
+	ArrayList<Node> children = new ArrayList<>();
+	
+	Node() {
+		
+	}
+	Node(int data) {
+		this.data = data;
+	}
+}
+
 public class GenericTreeCreation {		
 	public static Node construct(int[] arr) {
         Node root = null;
@@ -517,14 +530,4 @@ public class GenericTreeCreation {
         
 	}
 }
-class Node {
-	int data;
-	ArrayList<Node> children = new ArrayList<>();
-	
-	Node() {
-		
-	}
-	Node(int data) {
-		this.data = data;
-	}
-}
+

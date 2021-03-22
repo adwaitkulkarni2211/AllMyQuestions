@@ -47,6 +47,7 @@ public class InfixConversions {
                 }
                 ops.push(ch);
             }
+            System.out.println(ops);
         }
 
         while (ops.size() != 0) {
@@ -60,7 +61,9 @@ public class InfixConversions {
             String lowerPre = pre.pop();
             String preVal = op + lowerPre + upperPre;
             pre.push(preVal);
+            System.out.println(ops);
         }
+        System.out.println("post: " + post);
         
         System.out.println(post.pop());
         System.out.println(pre.pop());
