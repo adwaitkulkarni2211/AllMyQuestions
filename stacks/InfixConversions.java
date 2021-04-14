@@ -33,7 +33,7 @@ public class InfixConversions {
                 ops.pop();
             } else if (ch == '+' || ch == '-' || ch == '*' || ch == '/') {
                 while (ops.size() != 0 && ops.peek() != '(' &&
-                    precedence(ops.peek()) >= precedence(ch)) {
+                		precedence(ch) <= precedence(ops.peek())) {
                     char op = ops.pop();
                     String upperPost = post.pop();
                     String lowerPost = post.pop();

@@ -27,7 +27,8 @@ public class PostfixEvaluationAndCoversion {
                 pre.push(ch + lowPre + upPre);
 
             } else {
-                value.push((int) ch - '0'); in .push(ch + "");
+                value.push((int) ch - '0'); 
+                in.push(ch + "");
                 pre.push(ch + "");
             }
             System.out.println(value);

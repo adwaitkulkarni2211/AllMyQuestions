@@ -52,8 +52,7 @@ public class MergeOverlappingIntervals {
 
 
     public static class Pair implements Comparable < Pair > {
-        int start,
-        end;
+        int start, end;
 
         Pair(int start, int end) {
             this.start = start;

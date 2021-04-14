@@ -1,16 +1,15 @@
 package stacks;
 import java.util.*;
-import java.io.*;
+
 public class LargestAreaHistogram {
 	public static void main(String[] args) throws Exception {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-        int n = Integer.parseInt(br.readLine());
+		 Scanner sc = new Scanner(System.in);
+	     int n = sc.nextInt();
         int[] arr = new int[n];
         for (int i = 0; i < n; i++) {
-            arr[i] = Integer.parseInt(br.readLine());
+            arr[i] = sc.nextInt();
         }
-
+        sc.close();
         // code
         int[] rb = new int[arr.length]; // nse on the right
         Stack < Integer > st = new Stack < > ();
