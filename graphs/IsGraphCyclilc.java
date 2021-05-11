@@ -60,7 +60,7 @@ public class IsGraphCyclilc {
     public static boolean isCyclic(ArrayList<Edge>[] graph, boolean[] visited, int src) {
         ArrayDeque<Pair> queue = new ArrayDeque<>();
         queue.add(new Pair(src, src + ""));
-        
+        //System.out.println("q: " + queue);
         while(queue.size() > 0) {
             Pair rem  = queue.removeFirst();
             
@@ -74,6 +74,10 @@ public class IsGraphCyclilc {
                     queue.add(new Pair(e.nbr, rem.psf + e.nbr));
                 }
             }
+            for(Pair p: queue) {
+            	System.out.print(p.v + " ");
+            }
+            System.out.println();
         }
         return false;
     }

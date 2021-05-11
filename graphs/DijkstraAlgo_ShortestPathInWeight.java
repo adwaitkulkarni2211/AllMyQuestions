@@ -45,7 +45,7 @@ public class DijkstraAlgo_ShortestPathInWeight {
             int v2 = Integer.parseInt(parts[1]);
             int wt = Integer.parseInt(parts[2]);
             graph[v1].add(new Edge(v1, v2, wt));
-            graph[v2].add(new Edge(v2, v1, wt));
+            //graph[v2].add(new Edge(v2, v1, wt));
         }
 
         int src = Integer.parseInt(br.readLine());
