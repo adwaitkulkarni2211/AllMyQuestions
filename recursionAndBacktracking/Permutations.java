@@ -1,6 +1,47 @@
 package recursionAndBacktracking;
 import java.util.*;
 public class Permutations {
+	//another method from pepcoding, similar code to combinations
+	public static void permutations(int cb, int tb, boolean[] items, int ssf, int ts, String asf){
+        if(cb > tb) {
+            if(ssf == ts) {
+                System.out.println(asf);
+            }
+            return;
+        }
+        
+        for(int i=0; i<items.length; i++) {
+            if(items[i] == false) {
+                items[i] = true;
+                permutations(cb + 1, tb, items, ssf + 1, ts, asf + (i + 1));
+                items[i] = false;
+            }
+        }
+        
+        permutations(cb + 1, tb, items, ssf, ts, asf + '0');
+    }
+	
+	//pepcoding's method, easier to understand
+	public static void permutations(int[] boxes, int ci, int ti) {
+		//ci -> current item
+		//ti -> total items
+        if(ci > ti) {
+            for(int num: boxes) {
+                System.out.print(num);
+            }
+            System.out.println();
+            return;
+        }
+        
+        for(int i=0; i<boxes.length; i++) {
+            if(boxes[i] == 0) {
+                boxes[i] = ci;
+                permutations(boxes, ci + 1, ti);
+                boxes[i] = 0;
+            }
+        }
+    }
+	//same method used in permutations for a string
 	List<List<Integer>> list = new ArrayList<>();
     public List<List<Integer>> permute(int[] nums) {
         List<Integer> a = new ArrayList<>();

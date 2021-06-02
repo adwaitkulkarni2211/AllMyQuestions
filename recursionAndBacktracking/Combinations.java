@@ -1,6 +1,45 @@
 package recursionAndBacktracking;
 import java.util.*;
 public class Combinations {
+	//another method from pepcoding, similar to the first/original one:
+	public static void combinations(boolean[] boxes, int ci, int ti, int lb){
+        if(ci > ti) {
+            String ans = "";
+            for(int i=0; i<boxes.length; i++) {
+                if(boxes[i] == false) {
+                    ans += '-';
+                } else {
+                    ans += 'i';
+                }
+            }
+            System.out.println(ans);
+            return;
+        }
+        
+        for(int i=lb + 1; i<boxes.length; i++) {
+        	boxes[i] = true;
+            combinations(boxes, ci + 1, ti, i);
+            boxes[i] = false;
+        }
+    }	
+	
+	//pepcoding's code, much easier, just like subsequence/subset
+	public static void combinations(int cb, int tb, int ssf, int ts, String asf){
+		//cb -> current box
+		//tb -> total boxes
+		//ssf -> selections so far
+		//ts -> total selections
+        if(cb > tb) {
+            if(ssf == ts) {
+                System.out.println(asf);
+            }
+            return;
+        }
+        
+        combinations(cb + 1, tb, ssf + 1, ts, asf + 'i');
+        combinations(cb + 1, tb, ssf, ts, asf + '-');
+    }
+	
 	List<List<Integer>> ret;
     public List<List<Integer>> combine(int n, int k) {
         ret = new ArrayList<>();

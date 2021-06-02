@@ -16,8 +16,8 @@ public class PallindromicPartitioning {
 		for(int i=0; i<str.length(); i++) {
 		    String ss = str.substring(0, i+1);
 		    if(pallindrome(ss)) {
-                asf.add(ss);
 		        String ros = str.substring(i+1);
+		        asf.add(ss);
 		        solution(ros, asf);
                 asf.remove(asf.size() - 1);
 		    }
