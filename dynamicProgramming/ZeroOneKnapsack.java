@@ -4,41 +4,73 @@ public class ZeroOneKnapsack {
 	public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
-        int[] v = new int[n], w = new int[n];
-        for (int i = 0; i < n; i++) {
-            v[i] = sc.nextInt();
+        int wt[] = new int[n];
+        int val[] = new int[n];
+        for(int i=0; i<n; i++) {
+            val[i] = sc.nextInt();
         }
-        for (int i = 0; i < n; i++) {
-            w[i] = sc.nextInt();
+        for(int j=0; j<n; j++) {
+            wt[j] = sc.nextInt();
         }
-        int target = sc.nextInt();
+        int maxWt = sc.nextInt();
         sc.close();
-        int[][] dp = new int[n + 1][target + 1];
-
-        for (int i = 0; i < dp.length; i++) {
-            for (int j = 0; j < dp[0].length; j++) {
-                if (i == 0) {
+        System.out.println(solve(wt, val, n, maxWt));
+        System.out.println(solve(wt, val, maxWt, 0, new int[n+1][maxWt + 1]));
+    }
+    
+    private static int solve(int[] w, int v[], int n, int wt) {
+        int[][] dp = new int[n+1][wt+1];
+        
+        for(int i=0; i<dp.length; i++) {
+            for(int j=0; j<dp[i].length; j++) {
+                if(i == 0 || j == 0) {
                     dp[i][j] = 0;
-                } else if (j == 0) {
-                    dp[i][j] = 0;
+                } else if(j < w[i-1]){
+                    dp[i][j] = dp[i-1][j];
                 } else {
-                    int val = w[i - 1];
-                    //System.out.println("val: " + val);        
-                    if (j >= val) {
-                        dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - val] + v[i - 1]);
-                    } else {
-                        dp[i][j] = dp[i - 1][j];
-                    }
+                    //if batsman does not bat
+                    int dnb = dp[i-1][j];
+                    //if batsman does bat
+                    int db = dp[i-1][j - w[i-1]] + v[i-1];
+                    
+                    dp[i][j] = Math.max(dnb, db);
                 }
             }
         }
-        // for(int i=0; i<n + 1; i++) {
-        //     for(int j=0; j<target + 1; j++) {
-        //         System.out.print(dp[i][j] + " ");
-        //     }
-        //     System.out.println();
-        // }
-        System.out.println(dp[dp.length - 1][dp[0].length - 1]);
-
+        
+        return dp[n][wt];
+    }
+    
+    //memoization
+    private static int solve(int[] wt, int[] val, int maxWt, int idx, int dp[][]) {
+        if(idx == wt.length) {
+            return 0;
+        }
+        
+        if(dp[idx][maxWt] != 0) {
+            return dp[idx][maxWt];
+        }
+        
+        if(maxWt >= wt[idx]) {
+            int in = solve(wt, val, maxWt - wt[idx], idx + 1, dp) + val[idx];
+            int out = solve(wt, val, maxWt, idx + 1, dp);
+            dp[idx][maxWt] = Math.max(in, out);
+            display(dp, idx, maxWt);
+            return dp[idx][maxWt];
+        } else {
+            dp[idx][maxWt] = solve(wt, val, maxWt, idx + 1, dp);
+            display(dp, idx, maxWt);
+            return dp[idx][maxWt];
+        }
+    }
+    
+    private static void display(int[][] a, int idx, int maxWt) {
+    	System.out.println("dp[" + idx + "][" + maxWt + "]: ");
+    	for(int i=0; i<a.length; i++) {
+    		for(int j=0; j<a[i].length; j++) {
+    			System.out.print(a[i][j] + " ");
+    		}
+    		System.out.println();
+    	}
     }
 }

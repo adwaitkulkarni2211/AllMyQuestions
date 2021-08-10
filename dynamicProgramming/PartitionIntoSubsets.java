@@ -28,4 +28,24 @@ public class PartitionIntoSubsets {
         //     System.out.println();
         // }
     }
+	
+	//mem
+	public static long solve(int n, int k, long[][] dp) {
+        if(n < 0 || n < k) {
+            return 0;
+        }
+        if(n == 0 || k == 1) {
+            return 1;
+        }
+        if(dp[n][k] != 0) {
+            return dp[n][k];
+        }
+        
+        //if n chooses to stay alone in a new set, so the reamining numbers should form k - 1 sets
+        long al = solve(n - 1, k - 1, dp);
+        //if n chooses to merge with an existing set, so the remaining numbers should form k sets
+        long mr = k * solve(n - 1, k, dp);
+        
+        return dp[n][k] = al + mr;
+    }
 }

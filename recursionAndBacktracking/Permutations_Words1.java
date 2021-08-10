@@ -1,7 +1,7 @@
 package recursionAndBacktracking;
 import java.io.*;
 import java.util.*;
-//box chooses
+//spot chooses
 public class Permutations_Words1 {
 	public static void generateWords(int cs, int ts, HashMap<Character, Integer> fmap, String asf) {
         if(cs == ts) {

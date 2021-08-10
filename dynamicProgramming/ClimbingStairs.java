@@ -32,10 +32,9 @@ public class ClimbingStairs {
         int cp2 = climbingStairs(n - 2, qb);
         int cp3 = climbingStairs(n - 3, qb);
         
-        int count = cp1 + cp2 + cp3;
-
-        qb[n] = count;
-        return count;
+        qb[n] = cp1 + cp2 + cp3;
+        
+        return qb[n];
     }
     
     public static int climbingStairsTab(int n) {

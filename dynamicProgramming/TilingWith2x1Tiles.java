@@ -5,8 +5,8 @@ public class TilingWith2x1Tiles {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         sc.close();
-        int[] qb = new int[n+1];
-        System.out.println(tiles(n, qb));
+        long[] qb = new long[n+1];
+        System.out.println(solve(n, qb));
         
         //using tabulation
         int[] dp = new int[n+1];
@@ -17,21 +17,23 @@ public class TilingWith2x1Tiles {
         }
         System.out.println(dp[n]);
     }
-    //Using memoization recursion
-    public static int tiles(int n, int[] qb) {
-        if(n == 1) {
-            return 1;
-        } else if(n == 2) {
-            return 2;
+    //Using memoization, exactly the same as fibonacci
+    public static long solve(int w, long[] dp) {
+        if(w < 0) {
+            return 0;
         }
-        if(qb[n] != 0) {
-            return qb[n];
+        if(w == 0) {
+            return 1;
+        }
+        if(dp[w] != 0) {
+            return dp[w];
         }
         
-        int n1 = tiles(n-1, qb);
-        int n2 = tiles(n-2, qb);
-        int total = n1 + n2;
-        qb[n] = total;
-        return total;
+        //placing horizontally 2 tiles together
+        long hor = solve(w - 2, dp) % 1000000007;
+        //placing vertically
+        long ver = solve(w - 1, dp) % 1000000007;
+        
+        return dp[w] = (hor + ver) % 1000000007;
     }
 }

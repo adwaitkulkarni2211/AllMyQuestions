@@ -1,5 +1,6 @@
 package recursionAndBacktracking;
 import java.util.*;
+//character chooses whether or not to be included in the answer.
 public class Words_KSelections {
 	public static void solve(int n, String uni, String asf, int idx) {
         if(idx == uni.length()) {

@@ -4,25 +4,31 @@ public class UnboundedKnapsack {
 	public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
-        int[] v = new int[n], w = new int[n];
-        for (int i = 0; i < n; i++) {
-            v[i] = sc.nextInt();
+        int[] wt = new int[n];
+        int[] val = new int[n];
+        
+        for(int i=0; i<n; i++) {
+            val[i] = sc.nextInt();
         }
-        for (int i = 0; i < n; i++) {
-            w[i] = sc.nextInt();
+        for(int i=0; i<n; i++) {
+            wt[i] = sc.nextInt();
         }
-        int target = sc.nextInt();
+        
+        int maxWt = sc.nextInt();
         sc.close();
-        int[] dp = new int[target + 1];
-        for(int i=0; i<w.length; i++) {
-            for(int j=w[i]; j<dp.length; j++) {
-               dp[j] = Math.max(dp[j], v[i] + dp[j - w[i]]);
+        
+        System.out.println(solve(wt, val, n, maxWt));
+    }
+    
+    private static int solve(int[] wt, int[] val, int n, int maxWt) {
+        int dp[] = new int[maxWt + 1];
+        
+        for(int i=1; i<=n; i++) {
+            for(int j=wt[i-1]; j<dp.length; j++) {
+                dp[j] = Math.max(dp[j - wt[i-1]] + val[i-1], dp[j]);
             }
-            for(int k=0; k<dp.length; k++) {
-            System.out.print(dp[k] + " ");
-            }
-            System.out.println();
         }
-        System.out.println(dp[target]);
+        
+        return dp[maxWt];
     }
 }

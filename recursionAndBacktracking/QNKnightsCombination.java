@@ -1,6 +1,7 @@
 package recursionAndBacktracking;
 import java.io.*;
 public class QNKnightsCombination {
+	//knight chooses
 	public static boolean IsKnightSafe(boolean[][] chess, int i, int j) {
 		//only check the upper portion
         if(i - 2 >= 0 && j + 1 < chess.length && chess[i - 2][j + 1] == true) {

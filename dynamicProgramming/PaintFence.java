@@ -15,4 +15,28 @@ public class PaintFence {
         }
         System.out.println(total);
     }
+	
+	long solve(int n, int k, int color, int count, long[][][] dp) {
+        if(n == 0) {
+            return 1;
+        }
+        
+        if(dp[n][color][count] != -1) {
+            return dp[n][color][count];
+        }
+        
+        long ways = 0;
+        for(int i=1; i<=k; i++) {
+            if(color == i) {
+                if(count == 2) {
+                    continue;
+                }
+                ways += solve(n - 1, k, i, count + 1, dp) % 1000000007; 
+            } else {
+                ways += solve(n - 1, k, i, 1, dp) % 1000000007;
+            }
+        }
+        
+        return dp[n][color][count] = ways % 1000000007;
+    }
 }

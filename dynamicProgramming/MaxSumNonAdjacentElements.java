@@ -20,4 +20,23 @@ public class MaxSumNonAdjacentElements {
         
         System.out.println(Math.max(exc, inc));
     }
+	//memoization (TLE on gfg)
+	int solve(int[] nums, int prev, int idx, int[][] dp) {
+        if(idx == nums.length) {
+            return 0;
+        }
+        if(dp[idx][prev] != -1) {
+            return dp[idx][prev];
+        }
+        int in, out;
+        if(prev == 0) {
+            in = solve(nums, 1, idx + 1, dp) + nums[idx];
+            out = solve(nums, 0, idx + 1, dp);
+        } else {
+            in = 0;
+            out = solve(nums, 0, idx + 1, dp);
+        }
+        
+        return dp[idx][prev] = Math.max(in, out);
+    }
 }

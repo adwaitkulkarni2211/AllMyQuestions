@@ -1,5 +1,6 @@
 package recursionAndBacktracking;
 import java.util.*;
+//spot chooses
 public class Words_KSelections2 {
 	public static void solve(String uni, int cs, int ts, int lc, String asf) {
 		//cs = current selection

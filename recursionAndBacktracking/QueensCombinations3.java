@@ -1,5 +1,6 @@
 package recursionAndBacktracking;
 import java.io.*;
+//Queen chooses
 public class QueensCombinations3 {
 	public static void queensCombinations(int qpsf, int tq, boolean[][] chess, int lcno) {
         if(qpsf == tq) {

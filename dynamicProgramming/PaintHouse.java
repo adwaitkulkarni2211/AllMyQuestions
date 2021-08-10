@@ -30,5 +30,39 @@ public class PaintHouse {
              }
              System.out.println();
          }
+         System.out.println(solve(a, 0, 0, new int[1001][3]));
+    }
+	
+	//memoization
+	private static int solve(int[][] cost, int idx, int prev, int[][] dp) {
+        if(idx == cost.length) {
+            return 0;
+        }
+        
+        if(dp[idx][prev] != -1) {
+            return dp[idx][prev];
+        }
+        
+        //prev = 0 -> red, 1 -> blue, 2 -> green
+        int r = Integer.MAX_VALUE,g = Integer.MAX_VALUE,b = Integer.MAX_VALUE;
+        
+        if(idx == 0) {
+            r = solve(cost, idx + 1, 0, dp) + cost[idx][0];
+            b = solve(cost, idx + 1, 1, dp) + cost[idx][1];
+            g = solve(cost, idx + 1, 2, dp) + cost[idx][2];
+        } else {
+            if(prev == 0) {
+                b = solve(cost, idx + 1, 1, dp) + cost[idx][1];
+                g = solve(cost, idx + 1, 2, dp) + cost[idx][2];
+            } else if(prev == 1) {
+                r = solve(cost, idx + 1, 0, dp) + cost[idx][0];
+                g = solve(cost, idx + 1, 2, dp) + cost[idx][2];
+            } else if(prev == 2) {
+                r = solve(cost, idx + 1, 0, dp) + cost[idx][0];
+                b = solve(cost, idx + 1, 1, dp) + cost[idx][1];
+            }    
+        }
+        
+        return dp[idx][prev] = Math.min(r, Math.min(g, b));
     }
 }

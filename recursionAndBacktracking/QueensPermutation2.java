@@ -4,13 +4,13 @@ import java.io.*;
 public class QueensPermutation2 {
 	public static void queensPermutations(int qpsf, int tq, int row, int col, String asf, boolean[] queens) {
         if(row == tq) {
+        	System.out.println("qpsf: " + qpsf);
             if(qpsf == tq) {
                 System.out.println(asf);
-                System.out.println();
+                //System.out.println();
             }
             return;
         }
-        
         
         int nr = -1, nc = -1;
         char sep = '\0';

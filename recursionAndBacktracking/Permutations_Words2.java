@@ -1,6 +1,7 @@
 package recursionAndBacktracking;
 import java.io.*;
 import java.util.*;
+//character chooses
 public class Permutations_Words2 {
 	public static void generateWords(int cc, String str, Character[] spots, 
 									HashMap<Character, Integer> lastOccurence) {
