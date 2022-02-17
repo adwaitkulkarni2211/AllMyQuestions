@@ -3,15 +3,16 @@ import java.util.*;
 public class ZeroOneKnapsack {
 	public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the number of items: ");
         int n = sc.nextInt();
         int wt[] = new int[n];
         int val[] = new int[n];
         for(int i=0; i<n; i++) {
+        	System.out.println("Enter the value and weight for item " + i);
             val[i] = sc.nextInt();
+            wt[i] = sc.nextInt();
         }
-        for(int j=0; j<n; j++) {
-            wt[j] = sc.nextInt();
-        }
+        System.out.println("Enter the max capacity of knapsack: ");
         int maxWt = sc.nextInt();
         sc.close();
         System.out.println(solve(wt, val, n, maxWt));
@@ -36,6 +37,13 @@ public class ZeroOneKnapsack {
                     dp[i][j] = Math.max(dnb, db);
                 }
             }
+        }
+        
+        for(int i=0; i<dp.length; i++) {
+        	for(int j=0; j<dp[0].length; j++) {
+        		System.out.print(dp[i][j] + " ");
+        	}
+        	System.out.println();
         }
         
         return dp[n][wt];

@@ -10,9 +10,15 @@ public class MergeSort {
 		}
 		sc.close();
 		int[] ans = mergeSort(a, 0, a.length - 1);
-		System.out.println("Sorted array is: ");
+		System.out.println("\nSorted array is: ");
 		for(int i=0; i<n; i++) {
 			System.out.print(ans[i] + " ");
+		}
+	}
+	
+	public static void display(int[] a) {
+		for(int i=0; i<a.length; i++) {
+			System.out.print(a[i] + " ");
 		}
 	}
 	
@@ -23,9 +29,21 @@ public class MergeSort {
 			return ret;
 		}
 		
-		int a1[] = mergeSort(a, lo, (lo + hi) / 2);
-		int a2[] = mergeSort(a, ((lo + hi) / 2) + 1, hi);
-		return mergeTwoArrays(a1, a2);
+		int mid = (lo + hi) / 2;
+		
+		int half1[] = mergeSort(a, lo, mid);
+		int half2[] = mergeSort(a, mid + 1, hi);
+		int sorted[] = mergeTwoArrays(half1, half2);
+		
+		System.out.print("\nFirst Array: ");
+		display(half1);
+		System.out.print("\nSecond Array: ");
+		display(half2);
+		System.out.print("\nMerged Array: ");
+		display(sorted);
+		System.out.println();
+		
+		return sorted;
 		
 	}
 	
@@ -33,20 +51,13 @@ public class MergeSort {
 		int i = 0, j = 0, k = 0;
 		int ans[] = new int[a.length + b.length];
 		while(i < a.length && j < b.length) {
-			if(a[i] < b[j]) {
-				ans[k] = a[i];
-				i++;
-				k++;
-			} else if(b[j] < a[i]) {
+			if(b[j] < a[i]) {
 				ans[k] = b[j];
 				j++;
 				k++;
 			} else {
 				ans[k] = a[i];
 				i++;
-				k++;
-				ans[k] = b[j];
-				j++;
 				k++;
 			}
 		}

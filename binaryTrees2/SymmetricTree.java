@@ -16,49 +16,19 @@ public class SymmetricTree {
 	  
 	//preferred approach:
 	    public boolean isSymmetric(TreeNode root) {
-	        return isMirror(root, root);
+	        return solve(root, root);
 	    }
 	    
-	    public boolean isMirror(TreeNode t1, TreeNode t2) {
-	        if (t1 == null && t2 == null) return true;
-	        if (t1 == null || t2 == null) return false;
-	        return (t1.val == t2.val)
-	            && isMirror(t1.right, t2.left)
-	            && isMirror(t1.left, t2.right);
-	    }
-	  
-	  //My approach:
-	  public boolean isSymmetric1(TreeNode root) {
-	        lhs(root.left);
-	        rhs(root.right);
-	        //System.out.println("preL:" + preL + " preR: " + preR);
-	        if(preL.equals(preR)) {
+	    private boolean solve(TreeNode root1, TreeNode root2) {
+	        if(root1 == null && root2 == null) {
 	            return true;
 	        }
-	        return false;
-	    }
-	    String preL = "";
-	    public void lhs(TreeNode node) {
-	        if(node == null) {
-	            preL += "N";
-	            return;
+	        if(root1 == null || root2 == null) {
+	            return false;
 	        }
-	        
-	        preL += node.val;
-	        
-	        lhs(node.left);
-	        lhs(node.right);
-	    }
-	    String preR = "";
-	    public void rhs(TreeNode node) {
-	        if(node == null) {
-	            preR += "N";
-	            return;
+	        if(root1.val != root2.val) {
+	            return false;
 	        }
-	        
-	        preR += node.val;
-	        
-	        rhs(node.right);
-	        rhs(node.left);
+	        return solve(root1.left, root2.right) && solve(root1.right, root2.left);
 	    }
 }

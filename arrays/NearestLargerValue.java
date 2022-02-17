@@ -25,7 +25,8 @@ public class NearestLargerValue {
 		}
 		do {
 			String cont = sc.next();
-			int x = sc.nextInt(); 
+			int x = sc.nextInt();
+			sc.close();
 			if(cont == "e") {
 				break;
 			}

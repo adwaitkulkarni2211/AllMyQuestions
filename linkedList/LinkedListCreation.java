@@ -1,4 +1,5 @@
 package linkedList;
+import java.util.*;
 public class LinkedListCreation {
 	public static class Node {
         int data;
@@ -196,6 +197,36 @@ public class LinkedListCreation {
             }
         }
         
+        public Node getNodeAt(int idx) {
+            if (size == 0) {
+              return null;
+            } else if (idx < 0 || idx >= size) {
+              return null;
+            } else {
+              Node temp = head;
+              for (int i = 0; i < idx; i++) {
+                temp = temp.next;
+              }
+              return temp;
+            }
+          }
+        
+        public void reverseDIBetter() {
+            int i = 0, j = size - 1;
+            
+            while(i < j) {
+                Node n1 = getNodeAt(i);
+                Node n2 = getNodeAt(j);
+                
+                int temp = n1.data;
+                n1.data = n2.data;
+                n2.data = temp;
+                
+                i++;
+                j--;
+            }
+        }
+        
         public void reversePI() {
             // write your code here
             Node cur = head.next, prev = head;
@@ -238,7 +269,7 @@ public class LinkedListCreation {
             Node fast = head;
             Node slow = head;
 
-            while (fast.next != null && fast.next.next != null) {
+            while (fast.next != tail && fast != tail) {
                 fast = fast.next.next;
                 slow = slow.next;
             }
@@ -273,6 +304,27 @@ public class LinkedListCreation {
             return ans;
         }
         
+        private static Node mergeTwoSortedListsBetter(Node one, Node two) {
+        	Node i = one, j = two, dummy = new Node(), prev = dummy;
+            while(i != null && j != null) {
+                if(j.data < i.data) {
+                    prev.next = j;
+                    j = j.next;
+                } else {
+                    prev.next = i;
+                    i = i.next;
+                }
+                prev = prev.next;
+            }
+            
+            prev.next = i != null ? i : j;
+            
+            Node head = dummy.next;
+            dummy.next = null;
+            
+            return head;
+        }
+        
         public static Node midNode(Node head, Node tail) {
             Node f = head;
             Node s = head;
@@ -295,6 +347,11 @@ public class LinkedListCreation {
             LinkedList l1 = mergeSort(head, midNode(head, tail));
             LinkedList l2 = mergeSort(midNode(head, tail).next, tail);
             LinkedList ans = LinkedList.mergeTwoSortedLists(l1, l2);
+            
+            //ignore the next 2 lines, it's written just to to remove a warning
+            Node shit = mergeTwoSortedListsBetter(null, null);
+            System.out.println(shit);
+            
             return ans;
         }
         
@@ -312,6 +369,43 @@ public class LinkedListCreation {
             this.head = ans.head;
             this.tail = ans.tail;
             this.size = ans.size; 
+        }
+        
+        //Different Approach
+        public void removeDuplicates2(){
+            Node temp = head;
+            
+            while(temp != null) {
+                while(temp.next != null && temp.data == temp.next.data) {
+                    temp.next = temp.next.next;
+                }
+                temp = temp.next;
+            }
+            
+            Node slow = head, fast = head.next;
+            while(fast != null) {
+                fast = fast.next;
+                slow = slow.next;
+            }
+            tail = slow;
+        }
+        
+        //Remove Duplicates from unsorted list
+        public Node removeDuplicatesUnsorted(Node head) {
+            HashSet<Integer> set = new HashSet<>();
+            
+            Node curr = head, prev = null;
+            while(curr != null) {
+                if(set.contains(curr.data)) {
+                    prev.next = curr.next;
+                } else {
+                    set.add(curr.data);
+                    prev = curr;
+                }
+                curr = curr.next;
+            }
+            
+            return head;
         }
         
         public void oddEven() {

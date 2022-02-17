@@ -4,7 +4,7 @@ public class DiagonalTraversal {
 	public static void main(String[] args) throws Exception {
         // write your code here
         Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt(), c = 0, t = 10;
+        int n = sc.nextInt(), c = 0;
         int a[][] = new int[n][n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {

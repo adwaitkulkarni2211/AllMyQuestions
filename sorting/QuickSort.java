@@ -2,7 +2,6 @@ package sorting;
 import java.util.*;
 public class QuickSort {
 	public static void quickSort(int[] arr, int lo, int hi) {
-        //write your code here
         //System.out.println("lo: " + lo+ "hi: "+ hi);
         if(lo > hi) {
             return;

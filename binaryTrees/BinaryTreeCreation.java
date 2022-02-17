@@ -414,8 +414,8 @@ public class BinaryTreeCreation {
         if(node.left == null && node.right == null) {
             return null;
         }
-        node.left = removeLeaves(node.left);
-        node.right = removeLeaves(node.right);
+        node.left = removeLeaves1(node.left);
+        node.right = removeLeaves1(node.right);
         return node;
     }
     
