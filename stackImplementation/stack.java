@@ -16,7 +16,7 @@ public class stack {
         this.initilize(size);
     }
 
-    public void initilize(int size) {
+    protected void initilize(int size) {
         this.arr = new int[size];
         this.sizeOfArray = size;
         this.sizeOfStack = 0;
@@ -41,6 +41,10 @@ public class stack {
 
     public int size() {
         return this.sizeOfStack;
+    }
+    
+    protected int sizeOfArray(){
+        return this.sizeOfArray;
     }
 
     // functions

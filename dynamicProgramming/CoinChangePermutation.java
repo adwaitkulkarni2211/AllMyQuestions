@@ -24,7 +24,7 @@ public class CoinChangePermutation {
             for(int k=0; k<dp.length; k++) {
             	System.out.print(dp[k] + " ");
             }
-            System.out.println();
+            System.out.println("\n");
         }
         System.out.println(dp[target]);
     }

@@ -42,6 +42,19 @@ public class CountOfSubsetsWithSumEqualToX {
             }
         }
         
+        //this needs to be done because in the 1st column of the dp array (dp[i][0]),
+        //we are storing 1 in all cells as there is only 1 subset that satisfies the current
+        //target, 0, which is the empty subset (phi). However, when we have a 0 as an element
+        //in the nums array, this changes. There will be 2 subsets that add up to 0 (phi, {0}).
+        //So the 1st column will no longer store all 1s and to make this happen we'll have to make
+        //drastic changes to the code above.
+        
+        //if a 0 is added to a nums array, the number of subsets will be doubled. if two 0s
+        //are added it will be quadrupled and so on. Again, because each 0 will have two options,
+        //getting included or not getting included. And the special thing about the 0 is that
+        //including it will not affect the sum of that subset. 
+        //Check the dp table drawn in the notebook after water connection problem and before linkedList
+        
         int zeroCount = 0;
         for(int i=0; i<nums.length; i++) {
             if(nums[i] == 0) {

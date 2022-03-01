@@ -15,8 +15,8 @@ public class ZeroOneKnapsack {
         System.out.println("Enter the max capacity of knapsack: ");
         int maxWt = sc.nextInt();
         sc.close();
-        System.out.println(solve(wt, val, n, maxWt));
-        System.out.println(solve(wt, val, maxWt, 0, new int[n+1][maxWt + 1]));
+        System.out.println("Tab: " + solve(wt, val, n, maxWt));
+        System.out.println("Rec: " + solve(wt, val, maxWt, 0, new int[n+1][maxWt + 1]));
     }
     
     private static int solve(int[] w, int v[], int n, int wt) {
@@ -70,6 +70,13 @@ public class ZeroOneKnapsack {
             display(dp, idx, maxWt);
             return dp[idx][maxWt];
         }
+//        int inc = Integer.MIN_VALUE, exc;
+//        if(maxWt >= wt[idx]) {
+//        	inc = solve(wt, val, maxWt - wt[idx], idx + 1, dp);
+//        }
+//        exc = solve(wt, val, maxWt, idx + 1, dp);
+//        
+//        return dp[idx][maxWt] = Math.max(inc, exc);
     }
     
     private static void display(int[][] a, int idx, int maxWt) {
