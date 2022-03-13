@@ -45,7 +45,7 @@ public class TargetSum_CountNumberOfSubsetsWithGivenDifference {
     }
     
     
-    //A more direct approach wrt te problem statement (leetcode solution)
+    //A more direct approach wrt to problem statement (leetcode solution) basic recursion with memoization
     public class Solution {
         int count = 0;
         public int findTargetSumWays(int[] nums, int S) {
