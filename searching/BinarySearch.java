@@ -1,6 +1,5 @@
 package searching;
-
-import java.util.Scanner;
+import java.util.*;
 
 public class BinarySearch {
 
@@ -20,17 +19,20 @@ public class BinarySearch {
 	}
 
 	public static void main(String[] args) {
-	    Scanner sc = new Scanner(System.in);
-		int i;
-		int n = sc.nextInt();
+		int n = 50;
 		int a[] = new int[n];
-		for(i=0;i<n;i++) {
-			a[i] = sc.nextInt();
+		Random rand = new Random();
+		for(int i=0;i<n;i++) {
+			a[i] = rand.nextInt(99);
 		}
-		int x = sc.nextInt();
+		Arrays.sort(a);
+		int x = rand.nextInt(99);
+		for(int i=0; i<a.length; i++) {
+			System.out.print(a[i] + " ");
+		}
+		System.out.println();
 		int shit = bin_search(a, x);
-		System.out.println(shit);
-		sc.close();
+		System.out.println("The element " + x + " is located at: " + shit);
 	}
 
 }
