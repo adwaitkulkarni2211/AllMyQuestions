@@ -36,7 +36,7 @@ public class TheSkylineProblem {
         
         //sort it based on the x coordinate
         Collections.sort(coordinates);
-        //display(coordinates);
+        display(coordinates);
         
         List<List<Integer>> ans = new ArrayList<>();
         PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
