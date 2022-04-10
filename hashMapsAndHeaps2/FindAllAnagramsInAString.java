@@ -19,13 +19,13 @@ public class FindAllAnagramsInAString {
         List<Integer> ans = new ArrayList<>();
         //System.out.println(fmapS + "  " + fmapP);
         
-        //aquire and release;
+        //acquire and release;
         for(int i=p.length(); i<s.length(); i++) {
             if(fmapS.equals(fmapP)) {
                 //System.out.println(fmapS + "  " + fmapP + " i: " + i);
                 ans.add(i - p.length()); 
             }
-            //aquire
+            //acquire
             fmapS.put(s.charAt(i), fmapS.getOrDefault(s.charAt(i), 0) + 1);
             
             //release

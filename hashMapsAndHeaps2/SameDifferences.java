@@ -30,6 +30,7 @@ public class SameDifferences {
 				count += freq * (freq - 1) / 2;
 			}
 			
+			System.out.println("\nmap: " + map);
 			System.out.println(count);
 		}
 		sc.close();

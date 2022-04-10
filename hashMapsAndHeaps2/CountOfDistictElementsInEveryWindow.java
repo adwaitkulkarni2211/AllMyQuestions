@@ -16,7 +16,7 @@ public class CountOfDistictElementsInEveryWindow {
         ans.add(map.size());
         
         for(int i=k; i<arr.length; i++) {
-            //aquire
+            //acquire
             map.put(arr[i], map.getOrDefault(arr[i], 0) + 1);
             //release
             if(map.get(arr[i - k]) == 1) {
