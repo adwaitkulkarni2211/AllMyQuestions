@@ -23,7 +23,7 @@ public class QueensCombinations2 {
                 chess[row][j] = true;
                 queensCombinations(qpsf + 1, tq, chess, row, j);
                 chess[row][j] = false;
-            }
+            } 
         }
         
         for(int i = row + 1; i<chess.length; i++) {

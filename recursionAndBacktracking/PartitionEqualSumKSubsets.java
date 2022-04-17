@@ -1,6 +1,40 @@
 package recursionAndBacktracking;
 import java.util.*;
 public class PartitionEqualSumKSubsets {
+	public boolean canPartitionKSubsets_better(int[] nums, int k) {
+        int sum = sum(nums);
+        if(k == 1) {
+    	    return true;
+    	} else if(k > nums.length || sum % k != 0) {
+    	    return false;
+    	}
+    	
+        int target = sum / k;
+        
+        return solve(nums, target, new int[k], 0);
+    }
+    
+    private boolean solve(int[] nums, int target, int[] sets, int idx) {
+        if(idx == nums.length) {
+            return true;
+        }
+        
+        for(int i=0; i<sets.length; i++) {
+            if(sets[i] + nums[idx] > target) {
+                continue;
+            } else if(sets[i] + nums[idx] <= target) {
+                sets[i] += nums[idx];
+                if(solve(nums, target, sets, idx + 1)) {
+                    return true;
+                }
+                sets[i] -= nums[idx];
+            }
+            
+            if(sets[i] == 0) break;
+        }
+        return false;
+    }	
+	
 	boolean ans = false;
     public boolean canPartitionKSubsets(int[] a, int k) {
         if(k == 1) {
@@ -57,6 +91,10 @@ public class PartitionEqualSumKSubsets {
                 if(ans == true) return;
                 subsetSum[i] -= a[idx];
                 sets.get(i).remove(sets.get(i).size() - 1);
+                //breaking to avoid generating the same sets. if a number is added for the
+                //first time to a set, it means it hasn't been added to the sets after it.
+                //if we don't break out here, the number will be added to all the remaining 
+                //sets and it'll be as if we're doung the same thing again and again
                 break;
             }
         }
