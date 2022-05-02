@@ -66,4 +66,40 @@ public class ReorderList_FoldOfList {
             c2 = f2;
         }
     }
+    
+    //recursive, faster
+    class Solution {
+        ListNode left;
+        public void reorderList(ListNode head) {
+            toStop = false;
+            left = head;
+            ListNode right = head;
+            solve(right, head);
+        }
+        boolean toStop;
+        public void solve(ListNode right, ListNode head) {
+            if(right == null) {
+                return;
+            }
+            
+            solve(right.next, head);
+            
+            //odd -> left = right
+            //even -> left.next = right;
+            if(toStop == true) {
+                return;
+            }
+
+            if(toStop == false && (left == right || left.next == right)) {
+                right.next = null;
+                toStop = true;
+                return;
+            }
+        
+            ListNode temp = left.next;
+            left.next = right;
+            right.next = temp;
+            left = temp;
+        }
+    }
 }
