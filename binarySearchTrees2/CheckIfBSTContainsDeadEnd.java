@@ -10,27 +10,14 @@ public class CheckIfBSTContainsDeadEnd {
 		}
 	}
 	
-	static boolean ans;
-    public static boolean isDeadEnd(Node node) {
-        ans = false;
-        solve(node, 1, Integer.MAX_VALUE);
-        return ans;
+	public static boolean isDeadEnd(Node root) {
+        return solve(root, 1, Integer.MAX_VALUE);
     }
     
-    private static void solve(Node node, int min, int max) {
-        if(node == null || ans == true) {
-            return;
-        }
+    private static boolean solve(Node root, int lb, int rb) {
+        if(root != null && root.data == lb && lb == rb) return true;
+        if(root == null) return false;
         
-        if(node.left == null && node.right == null) {
-            if(max == min) {
-                ans = true;
-                return;
-            }
-        }
-        
-        //System.out.println("at node: " + node.data + " min: " + min + " max: " + max + " ans:" + ans);
-        solve(node.left, min, node.data - 1);
-        solve(node.right, node.data + 1, max);
+        return solve(root.left, lb, root.data - 1) || solve(root.right, root.data + 1, rb);
     }
 }

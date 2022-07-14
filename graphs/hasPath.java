@@ -53,7 +53,6 @@ public class hasPath {
                 }
             }
         }
-        visited[src] = false;
         return false;
     }
 }

@@ -1,44 +1,69 @@
 package binaryTrees2;
 import java.util.*;
 public class VerticalOrderTraversal {
-	static class Node {
-		int data = -1;
-		Node left = null, right = null;
-		Node(int data) {
-			this.data = data;
-			left = right = null;
+	class Solution {
+		class TreeNode {
+			TreeNode left, right;
+			int val;
 		}
-	}
-	
-	static class Pair {
-        int hd;
-        Node node;
-        Pair(int hd, Node node) {
-            this.hd = hd;
-            this.node = node;
-        }
-    }
-	static ArrayList<Pair> vot = new ArrayList<>();
-	static void verticalOrderTraversal(Node node, int hd) {
-		if(node == null) {
-			return;
-		}
-		
-		Pair p = new Pair(0, node);
-		vot.add(p);
-		
-		verticalOrderTraversal(node.left, hd - 1);
-		verticalOrderTraversal(node.right, hd + 1);
-	}
-	
-	static class sortByHd implements Comparator<Pair> { 
-	    public int compare(Pair a, Pair b) { 
-	        return a.hd - b.hd; 
-	    } 
-	} 
-	
-	public static void main(String[] args) {
-		Collections.sort(vot, new sortByHd());
-		
+	    class Pair implements Comparable<Pair>{
+	        TreeNode node;
+	        int row, col;
+	        Pair(TreeNode node, int row, int col) {
+	            this.node = node;
+	            this.row = row;
+	            this.col = col;
+	        }
+	        
+	        public int compareTo(Pair o) {
+	            if(this.col != o.col)
+	                return this.col - o.col;
+	            else if(this.row != o.row)
+	                return this.row - o.row;
+	            else
+	                return this.node.val - o.node.val;
+	        }
+	        
+	        public String toString() {
+	            return "(" + node.val + ", " + row + ", " + col + ")";
+	        }
+	    }
+	    
+	    private void fillList(TreeNode root, int row, int col, List<Pair> nodes) {
+	        if(root == null) {
+	            return;
+	        }
+	        
+	        nodes.add(new Pair(root, row, col));
+	        
+	        fillList(root.left, row + 1, col - 1, nodes);
+	        fillList(root.right, row + 1, col + 1, nodes);
+	    }
+	    
+	    public List<List<Integer>> verticalTraversal(TreeNode root) {
+	        List<Pair> nodes = new ArrayList<>();
+	        
+	        fillList(root, 0, 0, nodes); 
+	        
+	        Collections.sort(nodes);
+	        //System.out.println(nodes);
+	        
+	        List<List<Integer>> ans = new ArrayList<>();
+	        
+	        int i = 0;
+	        while(i < nodes.size()) {
+	            List<Integer> temp = new ArrayList<>();
+	            int col = nodes.get(i).col;
+	            
+	            while(i < nodes.size() && nodes.get(i).col == col) {
+	                temp.add(nodes.get(i).node.val);
+	                i++;
+	            }
+	            
+	            ans.add(temp);
+	        }
+	        
+	        return ans;
+	    }
 	}
 }

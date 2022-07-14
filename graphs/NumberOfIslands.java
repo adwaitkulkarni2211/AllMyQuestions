@@ -1,43 +1,34 @@
 package graphs;
-import java.io.*;
 
 public class NumberOfIslands {
-	public static void main(String[] args) throws Exception {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-        int m = Integer.parseInt(br.readLine());
-        int n = Integer.parseInt(br.readLine());
-        int[][] arr = new int[m][n];
-
-        for (int i = 0; i < arr.length; i++) {
-            String parts = br.readLine();
-            for (int j = 0; j < arr[0].length; j++) {
-                arr[i][j] = Integer.parseInt(parts.split(" ")[j]);
-            }
-        }
+	public int numIslands(char[][] grid) {
+        int[][] dir = {{0,1}, {-1,0}, {0,-1}, {1,0}};
+        
         int count = 0;
-        boolean[][] visited = new boolean[m][n];
-        for(int i=0; i<arr.length; i++) {
-            for(int j=0; j<arr[0].length; j++) {
-                if(arr[i][j] == 0 && visited[i][j] == false) {
-                    drawTreeForComp(arr, i, j, visited);
+        for(int i = 0; i < grid.length; i++) {
+            for(int j = 0; j < grid[0].length; j++) {
+                if(grid[i][j] != '0') {
+                    dfs(grid, dir, i, j);
                     count++;
                 }
             }
         }
-        System.out.println(count);
+        
+        return count;
     }
     
-    public static void drawTreeForComp(int[][] a, int i, int j, boolean[][] visited) {
-        if(i < 0 || j < 0 || i >= a.length || j >= a[0].length || a[i][j] == 1 || visited[i][j] == true) {
+    private void dfs(char[][] grid, int[][] dir, int row, int col) {
+        if(row < 0 || row > grid.length - 1 || col < 0 || col > grid[0].length - 1 || grid[row][col] == '0') {
             return;
         }
         
-        visited[i][j] = true;
-        drawTreeForComp(a, i - 1, j, visited);
-        drawTreeForComp(a, i, j + 1, visited);
-        drawTreeForComp(a, i + 1, j, visited);
-        drawTreeForComp(a, i, j - 1, visited);
+        grid[row][col] = '0';
         
+        for(int i = 0; i < dir.length; i++) {
+            int nRow = row + dir[i][0];
+            int nCol = col + dir[i][1];
+            
+            dfs(grid, dir, nRow, nCol);
+        }
     }
 }

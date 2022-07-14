@@ -10,21 +10,19 @@ public class CountBSTNodesThatLieInAGivenRange {
 		}
 	}
 	
-	int getCount(Node root,int l, int h) {
-        return countNodes(root, l, h);
-    }
-    
-    int countNodes(Node node, int lo, int hi) {
-        if(node == null) {
-            return 0;
+	int getCount(Node root, int lo, int hi) {
+        if(root == null) return 0;
+        
+        if(root.data < lo) {
+            return getCount(root.right, lo, hi);
         }
-
-        if(node.data >= lo && node.data <= hi) {
-            return countNodes(node.left, lo, hi) + countNodes(node.right, lo, hi) + 1;
-        } else if(node.data < lo) {
-            return countNodes(node.right, lo, hi);
-        } else {
-            return countNodes(node.left, lo, hi);
+        if(root.data > hi) {
+            return getCount(root.left, lo, hi);
         }
+        
+        int lCount = getCount(root.left, lo, hi);
+        int rCount = getCount(root.right, lo, hi);
+        
+        return lCount + rCount + 1;
     }
 }

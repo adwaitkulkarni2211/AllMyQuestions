@@ -60,7 +60,7 @@ public class PrimsAlgo_MST_MinWiresToConnectAllPCs {
             }
             
             if(rem.av != -1)
-                System.out.println("[" + rem.v + "-" + rem.av + "@"+rem.wt+"]");
+                System.out.println("[" + rem.v + "-" + rem.av + "@" + rem.wt+"]");
             
             for(Edge e: graph[rem.v]) {
                 if(visited[e.nbr] == false) {

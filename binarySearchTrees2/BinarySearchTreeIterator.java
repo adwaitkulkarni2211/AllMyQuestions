@@ -1,7 +1,7 @@
 package binarySearchTrees2;
 import java.util.*;
 
-public class NinarySearchTreeIterator {
+public class BinarySearchTreeIterator {
 	class TreeNode {
 		TreeNode right, left;
 		int val;

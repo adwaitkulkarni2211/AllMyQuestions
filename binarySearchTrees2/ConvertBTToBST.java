@@ -3,7 +3,6 @@ package binarySearchTrees2;
 import java.util.*;
 
 public class ConvertBTToBST {
-	
 	static class Node{
 		int data;
 		Node left, right;
@@ -12,7 +11,6 @@ public class ConvertBTToBST {
 			left = right = null;
 		}
 	}
-	
 	ArrayList<Integer> nums;
     Node binaryTreeToBST(Node root) {
        nums = new ArrayList<>();
@@ -34,5 +32,34 @@ public class ConvertBTToBST {
             node.data = rem;
         }
         inOrder(node.right, f);
+    }
+    //method 2:
+    Node binaryTreeToBST1(Node root) {
+        List<Integer> nodes = new ArrayList<>();
+        getNodes(root, nodes);
+        
+        Collections.sort(nodes);
+        
+        return construct(nodes, 0, nodes.size() - 1);
+    }
+    
+    private void getNodes(Node root, List<Integer> nodes) {
+        if(root == null) return;
+        nodes.add(root.data);
+        getNodes(root.left, nodes);
+        getNodes(root.right, nodes);
+    }
+    
+    private Node construct(List<Integer> nodes, int lo, int hi) {
+        if(lo > hi) return null;
+        
+        int mid = (lo + hi) / 2;
+        
+        Node nn = new Node(nodes.get(mid));
+        
+        nn.left = construct(nodes, lo, mid - 1);
+        nn.right = construct(nodes, mid + 1, hi);
+        
+        return nn;
     }
 }

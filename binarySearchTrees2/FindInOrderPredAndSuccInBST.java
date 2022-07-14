@@ -21,6 +21,37 @@ public class FindInOrderPredAndSuccInBST {
 //        s.succ = suc;
         //System.out.println("My pre: " + pre.data + " suc: " + suc.data);
     }
+    @SuppressWarnings("unused")
+	private static Node findGreater(Node root, int key) {
+        Node temp = root, ans = null;
+        
+        while(temp != null) {
+            if(temp.data <= key) {
+                temp = temp.right;
+            } else if(temp.data > key) {
+                ans = temp;
+                temp = temp.left;
+            }
+        }
+        
+        return ans == null ? new Node(-1) : ans;
+    }
+    
+    @SuppressWarnings("unused")
+	private static Node findSmaller(Node root, int key) {
+        Node temp = root, ans = null;
+        
+        while(temp != null) {
+            if(temp.data < key) {
+                ans = temp;
+                temp = temp.right;
+            } else if(temp.data >= key) {
+                temp = temp.left;
+            }
+        }
+        
+        return ans == null ? new Node(-1) : ans;
+    }
     static Node pre;
     static Node suc;
     private static void solve(Node node, int key) {

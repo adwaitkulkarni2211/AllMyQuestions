@@ -1,91 +1,57 @@
 package dynamicProgramming2;
 import java.util.*;
 public class EditDistance {
-	public int minDistance(String word1, String word2) {
-        StringBuilder s1 = new StringBuilder(word1);
-        StringBuilder s2 = new StringBuilder(word2);
-        
-        dp = new int[501][501];
+	public int minDistance(String s1, String s2) {
+        int n = s1.length(), m = s2.length();
+        int[][] dp = new int[n + 1][m + 1];
         for(int[] row: dp) {
             Arrays.fill(row, -1);
         }
-        return solve(s1, s2, 0, 0);
+        
+        mem(s1, s2, n, m, dp);
+        return tab(s1, s2, n, m, dp);
     }
     
-    int[][] dp;
-    //memoization
-    private int solve(StringBuilder word1, StringBuilder word2, int i, int j) {
-        if(i == word1.length()) {
-            if(j == word2.length()) {
-                return 0;
-            } else {
-                return word2.length() - j;
-            }
-        }
-        if(j == word2.length()) {
-            if(i == word1.length()) {
-                return 0;
-            } else {
-                return word1.length() - i;
-            }
+    private int mem(String s1, String s2, int n, int m, int[][] dp) {
+        if(n == 0 || m == 0) {
+            return (n != 0) ? n : m;
         }
         
-        if(dp[i][j] != -1) {
-            return dp[i][j];
+        if(dp[n][m] != -1) {
+            return dp[n][m];
         }
         
-        char c1 = word1.charAt(i);
-        char c2 = word2.charAt(j);
-        
-        int min;
-        if(c1 == c2) {
-            min = solve(word1, word2, i + 1, j + 1);
+        if(s1.charAt(n - 1) == s2.charAt(m - 1)) {
+            return dp[n][m] = mem(s1, s2, n - 1, m - 1, dp);
         } else {
-            //replace char            
-            int rep = solve(word1, word2, i + 1, j + 1) + 1;
-            
-            //delete char            
-            int del = solve(word1, word2, i + 1, j) + 1;
-            
-            //insert from word2 to word1            
-            int ins = solve(word1, word2, i, j + 1) + 1;
-            
-            min = Math.min(del, Math.min(ins, rep));
-        }
-        
-        return dp[i][j] = min;
+            int replace = mem(s1, s2, n - 1, m - 1, dp);
+            int delete = mem(s1, s2, n - 1, m, dp);
+            int insert = mem(s1, s2, n, m - 1, dp);
+
+            return dp[n][m] = Math.min(replace, Math.min(delete, insert)) + 1;
+        } 
     }
     
-    //tabulation
-    public int minDistance_tab(String word1, String word2) {
-        int n = word1.length(), m = word2.length();
-        int[][] dp = new int[m+1][n+1];
-        
-        for(int i=dp.length - 1; i>=0; i--) {
-            for(int j=dp[0].length - 1; j>=0; j--) {
-                if(i == dp.length - 1 && j == dp[0].length - 1) {
-                    dp[i][j] = 0;
-                } else if(i == dp.length - 1) {
-                    dp[i][j] = dp[0].length - j - 1;
-                } else if(j == dp[0].length - 1) {
-                    dp[i][j] = dp.length - i - 1;
-                } else {
-                    char c2 = word1.charAt(j);
-                    char c1 = word2.charAt(i);
-                    
-                    if(c1 == c2) {
-                        dp[i][j] = dp[i+1][j+1];
-                    } else {
-                        int rep = dp[i+1][j+1];
-                        int del = dp[i][j+1];
-                        int ins = dp[i+1][j];
-                        
-                        dp[i][j] = Math.min(rep, Math.min(del, ins)) + 1;
-                    }
+    private int tab(String s1, String s2, int N, int M, int[][] dp) {
+        for(int n = 0; n <= N; n++) {
+            for(int m = 0; m <= M; m++) {
+                if(n == 0 || m == 0) {
+                    dp[n][m] = (n != 0) ? n : m;
+                    continue;
                 }
+
+                if(s1.charAt(n - 1) == s2.charAt(m - 1)) {
+                    dp[n][m] = dp[n - 1][m - 1];
+                } else {
+                    int replace = dp[n - 1][m - 1];
+                    int delete = dp[n - 1][m];
+                    int insert = dp[n][m - 1];
+
+                    dp[n][m] = Math.min(replace, Math.min(delete, insert)) + 1;
+                } 
             }
         }
         
-        return dp[0][0];
+        return dp[N][M];
     }
 }
