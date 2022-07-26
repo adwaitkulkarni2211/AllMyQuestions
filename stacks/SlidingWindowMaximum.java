@@ -13,39 +13,43 @@ public class SlidingWindowMaximum {
         int k = sc.nextInt();
         sc.close();
         // code
-        Stack < Integer > st = new Stack < > ();
-        int[] nge = new int[a.length];
-        st.push(0);
-        for (int i = 1; i < a.length; i++) {
-            while (st.size() != 0 && a[i] > a[st.peek()]) {
-                int pos = st.peek();
-                nge[pos] = i;
-                st.pop();
+        
+        System.out.println(maxSlidingWindow(a, k));
+    }
+	
+	public static int[] maxSlidingWindow(int[] nums, int k) {
+        int[] nge = nge(nums);
+        
+        int[] msw = new int[nums.length - k + 1];
+        for(int i = 0; i <= nums.length - k; i++) {
+            int window = i + k, ng = i;
+            while(nge[ng] != -1 && nge[ng] < window) {
+                ng = nge[ng];
             }
+            
+            msw[i] = nums[ng];
+        }
+        
+        return msw;
+    }
+    
+    private static int[] nge(int[] nums) {
+        int[] nge = new int[nums.length];
+        Stack<Integer> st = new Stack<>();
+        st.push(0);
+        
+        for(int i = 1; i < nums.length; i++) {
+            while(!st.isEmpty() && nums[i] > nums[st.peek()]) {
+                nge[st.pop()] = i;
+            }
+            
             st.push(i);
         }
         
-        while (st.size() != 0) {
-            int pos = st.peek();
-            nge[pos] = a.length;
-            st.pop();
+        while(!st.isEmpty()) {
+            nge[st.pop()] = -1;
         }
-        System.out.println("nge: ");
-        for(int x: nge) {
-        	System.out.print(x + " ");
-        }
-        System.out.println();
-        //a:   [2 9 3 8 1 7 12 6 14 4 32 0 7 19 8 12 6]
-        //nge: [1 6 3 6 5 6 8 8 10 10 -1 12 13 -1 15 -1 -1]
-        int j = 0;
-        for(int i=0; i<=nge.length - k; i++) {
-            if(j < i) {
-                j = i;
-            }
-            while(nge[j] < i + k) {
-                j = nge[j];
-            }
-            System.out.println("swm for window: " + i + " is: " + a[j] + " j: " + j);
-        }
+        
+        return nge;
     }
 }

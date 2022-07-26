@@ -33,6 +33,7 @@ public class Bellman_Ford_Algo_SingleSourceShortestPath {
 			//adj.get(v2).add(v1); Directed Graph
 			edgeList[i] = new Edge(v1, v2, wt);
 		}
+		System.out.println("accepted all values!!");
 		
 		//initializing path array with infinity because we don't know the shortest paths
 		int startingPoint = sc.nextInt();
@@ -54,6 +55,7 @@ public class Bellman_Ford_Algo_SingleSourceShortestPath {
 					flag = 1;
 				}
 			}
+			printArr(path);
 			if(flag == 0) {
 				//2 consecutive same shortest paths, no point in searching more
 				break;
@@ -82,6 +84,13 @@ public class Bellman_Ford_Algo_SingleSourceShortestPath {
 			}
 			System.out.println();
 		}
+	}
+	
+	private static void printArr(int[] arr) {
+		for(int i = 0; i < arr.length; i++) {
+			System.out.print(arr[i] + " ");
+		}
+		System.out.println();
 	}
 
 }

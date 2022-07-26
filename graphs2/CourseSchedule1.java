@@ -1,7 +1,8 @@
 package graphs2;
 import java.util.*;
-public class CourseSchedule_Leetcode210 {
-	public int[] findOrder(int numCourses, int[][] prerequisites) {
+
+public class CourseSchedule1 {
+	public boolean canFinish(int numCourses, int[][] prerequisites) {
         int[] indeg = new int[numCourses];
         List<List<Integer>> adj = new ArrayList<>();
         for(int i = 0; i < numCourses; i++) {
@@ -17,19 +18,18 @@ public class CourseSchedule_Leetcode210 {
         return kahns_bfs(adj, numCourses, indeg);
     }
     
-    private int[] kahns_bfs(List<List<Integer>> adj, int n, int[] indeg) {
+    private boolean kahns_bfs(List<List<Integer>> adj, int n, int[] indeg) {
         Queue<Integer> q = new ArrayDeque<>();
-        int[] ans = new int[n];
         
         for(int i = 0; i < indeg.length; i++) {
             if(indeg[i] == 0)
                 q.add(i);
         }
         
-        int idx = n - 1;
+        int count = 0;
         while(!q.isEmpty()) {
             int rem = q.remove();
-            ans[idx--] = rem;
+            count++;
             
             for(int nbr: adj.get(rem)) {
                 indeg[nbr]--;
@@ -38,9 +38,9 @@ public class CourseSchedule_Leetcode210 {
             }
         }
         
-        if(idx == -1)
-            return ans;
+        if(count == n)
+            return true;
         else
-            return new int[0];
+            return false;
     }
 }

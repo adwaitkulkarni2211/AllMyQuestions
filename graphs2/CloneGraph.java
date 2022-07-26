@@ -11,8 +11,34 @@ public class CloneGraph {
 			neighbors = new ArrayList<>();
 		}
 	}
-	
 	public Node cloneGraph(Node node) {
+        return dfs(node, new Node[101]);
+    }
+	private Node dfs(Node node, Node[] visited) {
+        if(node == null) return null;
+        
+        Node nn = new Node(node.val);
+        visited[node.val] = nn;
+        
+        for(Node neighbor: node.neighbors) {
+            if(visited[neighbor.val] == null)
+                nn.neighbors.add(dfs(neighbor, visited));
+            else 
+                nn.neighbors.add(visited[neighbor.val]);
+        }
+        
+        return nn;
+    }
+	
+	class Pair {
+        Node clone, orig;
+        Pair(Node clone, Node orig) {
+            this.clone = clone;
+            this.orig = orig;
+        }
+    }
+	
+	public Node bfs(Node node) {
         if(node == null) {
             return null;
         }
@@ -38,13 +64,5 @@ public class CloneGraph {
             }
         }
         return root;
-    }
-    
-    class Pair {
-        Node clone, orig;
-        Pair(Node clone, Node orig) {
-            this.clone = clone;
-            this.orig = orig;
-        }
     }
 }

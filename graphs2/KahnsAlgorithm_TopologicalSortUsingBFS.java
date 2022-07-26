@@ -1,72 +1,42 @@
 package graphs2;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.*;
 
 public class KahnsAlgorithm_TopologicalSortUsingBFS {
-
-	static class Edge {
-        int src;
-        int nbr;
-
-        Edge(int src, int nbr) {
-            this.src = src;
-            this.nbr = nbr;
-        }
-    }
-
-    public static void main(String[] args) throws Exception {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-        int vtces = Integer.parseInt(br.readLine());
-        @SuppressWarnings("unchecked")
-		ArrayList < Edge > [] graph = new ArrayList[vtces];
-        for (int i = 0; i < vtces; i++) {
-            graph[i] = new ArrayList < > ();
-        }
-
-        int edges = Integer.parseInt(br.readLine());
-        for (int i = 0; i < edges; i++) {
-            String[] parts = br.readLine().split(" ");
-            int v1 = Integer.parseInt(parts[0]);
-            int v2 = Integer.parseInt(parts[1]);
-            graph[v1].add(new Edge(v1, v2));
-        }
-        int indegree[] = new int[vtces];
-        //filling the in degree array by finding each vertex's in degree
+	public boolean kahnsAlgo(ArrayList<ArrayList<Integer>> adj, int V) {
+        int[] indeg = new int[V];
         
-        for(int v=0; v<vtces; v++) {
-        	for(Edge e: graph[v]) {
-        		indegree[e.nbr]++;
-        	}
+        for(int i = 0; i < V; i++) {
+            for(int nbr: adj.get(i)) {
+                indeg[nbr]++;
+            }
         }
+        
+        return bfs(adj, V, indeg);
+    }
+    
+    private boolean bfs(ArrayList<ArrayList<Integer>> adj, int V, int[] indeg) {
         Queue<Integer> q = new ArrayDeque<>();
-        for(int v=0; v<indegree.length; v++) {
-        	if(indegree[v] == 0) {
-        		q.add(v);
-        	}
+        int count = 0;
+        
+        for(int i = 0; i < indeg.length; i++) {
+            if(indeg[i] == 0)
+                q.add(i);
         }
         
-        ArrayList<Integer> ans = new ArrayList<>();
-        int count = 0;
-        while(q.size() > 0) {
-        	int rem = q.remove();
-        	count++;
-        	ans.add(rem);
-        	for(Edge e: graph[rem]) {
-        		indegree[e.nbr]--;
-        		if(indegree[e.nbr] == 0) {
-        			q.add(e.nbr);
-        		}
-        	}
-        	
+        while(!q.isEmpty()) {
+            int rem = q.remove();
+            count++;
+            
+            for(int nbr: adj.get(rem)) {
+                indeg[nbr]--;
+                if(indeg[nbr] == 0)
+                    q.add(nbr);
+            }
         }
-        if(count != vtces) {
-        	System.out.println("Not a DAG, cycle detected.");
-        } else {
-        	System.out.println(ans);
+        
+        if(count == V) {
+            return true;
         }
+        return false;
     }
-
 }

@@ -1,72 +1,94 @@
 package graphs;
-import java.io.*;
 import java.util.*;
 public class PrimsAlgo_MST_MinWiresToConnectAllPCs {
-	static class Edge {
-        int src;
-        int nbr;
-        int wt;
-
-        Edge(int src, int nbr, int wt) {
-            this.src = src;
-            this.nbr = nbr;
-            this.wt = wt;
-        }
-    }
-    public static class Pair implements Comparable<Pair> {
-        int v, av, wt;
-        Pair(int v, int av, int wt) {
-            this.v = v;
-            this.av = av;
-            this.wt = wt;
-        }
-        
-        public int compareTo(Pair o) {
-            return this.wt - o.wt;
-        }
-    }
-
-    public static void main(String[] args) throws Exception {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-        int vtces = Integer.parseInt(br.readLine());
-        @SuppressWarnings("unchecked")
-		ArrayList < Edge > [] graph = new ArrayList[vtces];
-        for (int i = 0; i < vtces; i++) {
-            graph[i] = new ArrayList < > ();
-        }
-
-        int edges = Integer.parseInt(br.readLine());
-        for (int i = 0; i < edges; i++) {
-            String[] parts = br.readLine().split(" ");
-            int v1 = Integer.parseInt(parts[0]);
-            int v2 = Integer.parseInt(parts[1]);
-            int wt = Integer.parseInt(parts[2]);
-            graph[v1].add(new Edge(v1, v2, wt));
-            graph[v2].add(new Edge(v2, v1, wt));
-        }
-
+	//og O(NlogN)
+	private static int prims_pq(int n, ArrayList<ArrayList<ArrayList<Integer>>> adj) {
+    	boolean[] visited = new boolean[n];
         PriorityQueue<Pair> pq = new PriorityQueue<>();
-        pq.add(new Pair(0, -1, 0));
-        boolean[] visited = new boolean[vtces];
+        pq.add(new Pair(0, 0));
         
-        while(pq.size() > 0) {
+        int ans = 0;
+        while(!pq.isEmpty()) {
+            //find node with min dist
             Pair rem = pq.remove();
             
-            if(visited[rem.v] == true) {
+            if(visited[rem.v])
                 continue;
-            } else {
-                visited[rem.v] = true;
-            }
+            visited[rem.v] = true;
+            ans += rem.dist;
             
-            if(rem.av != -1)
-                System.out.println("[" + rem.v + "-" + rem.av + "@" + rem.wt+"]");
-            
-            for(Edge e: graph[rem.v]) {
-                if(visited[e.nbr] == false) {
-                    pq.add(new Pair(e.nbr, rem.v, e.wt));
+            for(ArrayList<Integer> edge: adj.get(rem.v)) {
+                int u = edge.get(0), dist = edge.get(1);
+                
+                if(!visited[u]) {
+                    pq.add(new Pair(u, dist));
                 }
             }
         }
+        
+        return ans;
+    }
+	//O(n^2)
+	private static int getNodeWithMinDist(int[] minDist, boolean[] nodes) {
+        int min = Integer.MAX_VALUE, minIdx = -1;
+        for(int i = 0; i < minDist.length; i++) {
+            if(!nodes[i] && minDist[i] < min) {
+                min = minDist[i];
+                minIdx = i;
+            }
+        }
+        
+        return minIdx;
+    }
+    private static void relaxEdges(int v, boolean[] nodes, int[] minDist, int[] parent, ArrayList<ArrayList<ArrayList<Integer>>> adj) {
+        for(ArrayList<Integer> edge: adj.get(v)) {
+            int u = edge.get(0), dist = edge.get(1);
+            
+            if(!nodes[u] && dist < minDist[u]) {
+                minDist[u] = dist;
+                parent[u] = v;
+            }
+        }
+    }
+    private static int prims(int n, ArrayList<ArrayList<ArrayList<Integer>>> adj) {
+        int[] minDist = new int[n];
+        int[] parent = new int[n];
+        boolean[] nodes = new boolean[n];
+        
+        Arrays.fill(minDist, (int)1e9);
+        Arrays.fill(parent, -1);
+        
+        minDist[0] = 0;
+        
+        for(int e = 0; e < n - 1; e++) {
+            //find node with min dist
+            int v = getNodeWithMinDist(minDist, nodes);
+            
+            nodes[v] = true;
+            
+            relaxEdges(v, nodes, minDist, parent, adj);
+        }
+        
+        //count the total cost
+        int cost = 0;
+        for(int i = 0; i < minDist.length; i++) {
+            cost += minDist[i];
+        }
+        
+        return cost;
+    }
+    
+    private static class Pair {
+    	int v, dist;
+    	Pair(int v, int dist) {
+    		this.v = v;
+    		this.dist = dist;
+    	}
+    }
+    
+    //Function to find sum of weights of edges of the Minimum Spanning Tree.
+    static int spanningTree(int V, ArrayList<ArrayList<ArrayList<Integer>>> adj) {
+    	prims_pq(V, adj);
+        return prims(V, adj);
     }
 }

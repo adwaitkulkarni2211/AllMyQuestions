@@ -1,19 +1,19 @@
 package graphs2;
 import java.util.*;
 public class DetectCycleInUndirectedGraph {
-	boolean ans;
-    public void dfs(ArrayList<ArrayList<Integer>> graph, boolean[] visited, int src, int prev) {
-        
+	private boolean dfs(ArrayList<ArrayList<Integer>> adj, boolean[] visited, int src, int prev) {
         visited[src] = true;
-        for(int nbr: graph.get(src)) {
-            if(visited[nbr] == false) {
-                dfs(graph, visited, nbr, src);
+        
+        boolean ans = false;
+        for(int nbr: adj.get(src)) {
+            if(!visited[nbr]) {
+                ans = ans || dfs(adj, visited, nbr, src);
             } else if(nbr != prev) {
-                ans = true;
-                return;
+                return true;
             }
         }
-        visited[src] = false;
+        
+        return ans;
     }
     
     public boolean bfs(ArrayList<ArrayList<Integer>> graph, boolean[] visited, int src) {
@@ -37,16 +37,11 @@ public class DetectCycleInUndirectedGraph {
         return false;
     }
     
-    public boolean isCycle(int v, ArrayList<ArrayList<Integer>> graph) {
-    	//this is for dfs, will be the same for bfs.
-        boolean[] visited = new boolean[v];
-        ans = false;
-        for(int i=0; i<v; i++) {
-            if(visited[i] == false) {
-                dfs(graph, visited, i, -1);
-                if(ans) {
-                    return true;
-                }
+    public boolean isCycle(int V, ArrayList<ArrayList<Integer>> adj) {
+        boolean[] visited = new boolean[V];
+        for(int i = 0; i < V; i++) {
+            if(!visited[i] && dfs(adj, visited, i, -1)) {
+                return true;
             }
         }
         return false;

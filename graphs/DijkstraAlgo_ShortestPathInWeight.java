@@ -1,76 +1,45 @@
 package graphs;
-import java.io.*;
 import java.util.*;
 public class DijkstraAlgo_ShortestPathInWeight {
-	static class Edge {
-        int src;
-        int nbr;
-        int wt;
-
-        Edge(int src, int nbr, int wt) {
-            this.src = src;
-            this.nbr = nbr;
-            this.wt = wt;
-        }
-    }
-    public static class Pair implements Comparable<Pair>{
-        int v, wsf;
-        String psf;
-        
-        Pair(int v, String psf, int wsf) {
+	class Pair implements Comparable<Pair>{
+        int v, dist;
+        Pair(int v, int dist) {
             this.v = v;
-            this.psf = psf;
-            this.wsf = wsf;
+            this.dist = dist;
         }
         
         public int compareTo(Pair o) {
-            return this.wsf - o.wsf;
+            return this.dist - o.dist;
+        }
+        public String toString() {
+            return "(" + v + ", " + dist + ")";
         }
     }
-
-    public static void main(String[] args) throws Exception {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-        int vtces = Integer.parseInt(br.readLine());
-        @SuppressWarnings("unchecked")
-		ArrayList < Edge > [] graph = new ArrayList[vtces];
-        for (int i = 0; i < vtces; i++) {
-            graph[i] = new ArrayList < > ();
-        }
-
-        int edges = Integer.parseInt(br.readLine());
-        for (int i = 0; i < edges; i++) {
-            String[] parts = br.readLine().split(" ");
-            int v1 = Integer.parseInt(parts[0]);
-            int v2 = Integer.parseInt(parts[1]);
-            int wt = Integer.parseInt(parts[2]);
-            graph[v1].add(new Edge(v1, v2, wt));
-            //graph[v2].add(new Edge(v2, v1, wt));
-        }
-
-        int src = Integer.parseInt(br.readLine());
+    
+    public int[] dijkstra(int n, int src, ArrayList<ArrayList<ArrayList<Integer>>> adj) {
+        int[] minDist = new int[n];
+        Arrays.fill(minDist, (int)1e9);
         
-        boolean[] visited = new boolean[vtces];
         PriorityQueue<Pair> pq = new PriorityQueue<>();
-        pq.add(new Pair(src, src + "", 0));
         
-        while(pq.size() > 0) {
+        pq.add(new Pair(src, 0));
+        
+        while(!pq.isEmpty()) {
             Pair rem = pq.remove();
             
-            if(visited[rem.v] == true) {
+            if(rem.dist >= minDist[rem.v]) {
                 continue;
-            } else {
-                visited[rem.v] = true;
             }
+            minDist[rem.v] = rem.dist;
             
-            System.out.println(rem.v + " via "+ rem.psf + " @ " + rem.wsf);
-            
-            for(Edge e: graph[rem.v]) {
-                if(visited[e.nbr] == false) {
-                    pq.add(new Pair(e.nbr,rem.psf + e.nbr,rem.wsf + e.wt));
-                }
+            for(ArrayList<Integer> edge: adj.get(rem.v)) {
+                int nbr = edge.get(0), dist = rem.dist + edge.get(1);
+                
+                if(dist < minDist[nbr])
+                    pq.add(new Pair(nbr, dist));
             }
         }
-
+        
+        return minDist;
     }
 }

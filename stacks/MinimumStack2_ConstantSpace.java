@@ -1,100 +1,61 @@
 package stacks;
-import java.io.*;
 import java.util.*;
 public class MinimumStack2_ConstantSpace {
 	public static class MinStack {
-        Stack < Integer > data;
-        int min;
+		Stack<Integer> st = new Stack<>();
+	    int min = Integer.MAX_VALUE;
 
-        public MinStack() {
-            data = new Stack <> ();
-        }
+	    /*returns min element from stack*/
+	    int getMin() {
+	        if(st.isEmpty() || min == Integer.MAX_VALUE)
+	            return -1;
+	        return min;
+	    }
+	    
+	    public int top() {
+	        if(st.isEmpty()) return -1;
+	        
+	        int top = st.peek();
+	        
+	        if(top < min) {
+	            return min;
+	        }
+	        
+	        return top;
+	    }
+	    
+	    /*returns poped element from stack*/
+	    int pop() {
+	        if(st.isEmpty()) return -1;
+	        
+	        int top = st.pop();
+	        
+	        if(top < min) {
+	            int orig = min;
+	            min = 2 * min - top;
+	            return orig;
+	        }
+	        
+	        return top;
+	    }
 
-        int size() {
-            // write your code here
-            return data.size();
-        }
-
-        void push(int val) {
-            // write your code here
-            if(data.size() == 0) {
-                data.push(val);
-                min = val;
-            } else if(val <= min) {
-                data.push(val + val - min); //storing fake value in stack
-                min = val;                  //storing original calue in min
-                //System.out.println("min: " + min);
-            } else {
-                data.push(val);
-            }
-        }
-
-        int pop() {
-            // write your code here
-            if(data.size() == 0) {
-                System.out.println("Stack undeflow");
-                return -1;
-            }
-            if(data.peek() >= min) {
-                return data.pop();    
-            } else {
-                int orig = min;
-                min = 2 * min - data.pop();
-                return orig;
-            }
-        }
-
-        int top() {
-            // write your code here
-            if(data.size() == 0) {
-                System.out.println("Stack undeflow");
-                return -1;
-            }
-            if(data.peek() >= min) {
-                return data.peek();    
-            } else {
-                return min;
-            }
-        }
-
-        int min() {
-            // write your code here
-            if(data.size() == 0) {
-                System.out.println("Stack undeflow");
-                return -1;
-            }
-            return min;
-        }
+	    /*push element x into the stack*/
+	    void push(int val) {
+	        if(st.isEmpty()) {
+	            st.push(val);
+	            min = val;
+	            return;
+	        }
+	        
+	        if(val >= min)
+	            st.push(val);
+	        else {
+	            st.push(2 * val - min);
+	            min = val;
+	        }
+	    }	
     }
 
     public static void main(String[] args) throws Exception {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        MinStack st = new MinStack();
-
-        String str = br.readLine();
-        while (str.equals("quit") == false) {
-            if (str.startsWith("push")) {
-                int val = Integer.parseInt(str.split(" ")[1]);
-                st.push(val);
-            } else if (str.startsWith("pop")) {
-                int val = st.pop();
-                if (val != -1) {
-                    System.out.println(val);
-                }
-            } else if (str.startsWith("top")) {
-                int val = st.top();
-                if (val != -1) {
-                    System.out.println(val);
-                }
-            } else if (str.startsWith("size")) {
-                System.out.println(st.size());
-            } else if (str.startsWith("min")) {
-                int val = st.min();
-                if (val != -1) {
-                    System.out.println(val);
-                }
-            }
-            str = br.readLine();
-        }
     }
 }

@@ -1,116 +1,81 @@
 package graphs2;
 import java.util.*;
 public class SnakesAndLadders {
-	class Pair implements Comparable<Pair>{
-        int val, row, col, steps, lb, ub, dir;
-        Pair(int val, int row, int col, int steps, int lb, int ub, int dir) {
-            this.val = val;
-            this.row = row;
-            this.col = col;
-            this.steps = steps;
-            this.lb = lb;
-            this.ub = ub;
-            this.dir = dir;
-        }
-        
-        public int compareTo(Pair o) {
-            return this.val - o.val;
-        }
-    }
-    public int snakesAndLadders(int[][] board) {
-        Queue<Pair> q = new ArrayDeque<>();
-        q.add(new Pair(1, board.length - 1, 0, 0, 1, board.length, 1));
-        boolean[][] visited = new boolean[board.length][board.length];
-        
-        while(q.size() > 0) {
-            Pair rem = q.remove();
-            visited[rem.row][rem.col] = true;
-            
-            if (rem.val == Math.pow(board.length, 2)) {
-                return rem.steps;
-            }
-            
-            for(int i=1; i<=6; i++) {
-                int newVal = rem.val + i;
-                if(newVal > Math.pow(board.length, 2)) {
-                    continue;
-                }
-                Pair box = findBox(board, newVal, rem.steps + 1);
-                //if a snake or ladder is found, add the pos where we end up bc of the s/l
-                if(board[box.row][box.col] == -1) {
-                    if(visited[box.row][box.col] == false)
-                        q.add(box);
-                } else {
-                    Pair travel = findBox(board, board[box.row][box.col], rem.steps + 1);
-                    if(visited[travel.row][travel.col] == false) {
-                        q.add(travel);    
-                    }
-                }  
-            }
-        }
-        return -1;
-    }
-    public Pair findBox(int[][] board, int val, int steps) {
-        int lb = 1, ub = board.length;
-        int i = board.length - 1;
-        boolean firstLevel = (board.length - 1) % 2 == 0;
-        while(true) {
-            if(val >= lb && val <= ub) {
-                break;
-            } else {
-                int nlb = ub + 1;
-                int nub = ub + board.length;
-
-                ub = nub;
-                lb = nlb;
-                i--;
-            }
-        }
-        int dir = 0;
-        //if board.length - 1 is even, then dir will be +ve when i is even, else -ve
-        //if board.length - 1 is odd, then dir will be +ve when i is odd, else -ve
-        if(firstLevel == true) {
-            if(i % 2 == 0) {
-                dir = 1;
-            } else {
-                dir = -1;
-            }
-        } else {
-            if(i % 2 != 0) {
-                dir = 1;
-            } else {
-                dir = -1;
-            }
-        }
-        int j;
-        if(dir == 1) {
-            j = 0;
-        } else {
-            j = board.length - 1;
-        }
-        
-        for(int k=0; k<board.length; k++) {
-            if(dir == 1) {
-                if(lb + j == val) {
-                    break;
-                }
-                j++;
-            } else {
-                if(ub - j == val) {
-                    break;
-                }
-                j--;
-            }
-        }
-        
-        Pair box = new Pair(val, i, j, steps, lb, ub, dir);
-        
-        return box;
-    }
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	class Solution {
+	    class Pair1 {
+	        int row, col;
+	        Pair1(int row, int col) {
+	            this.row = row;
+	            this.col = col;
+	        }
+	    }
+	    class Pair2 {
+	        int cell, steps;
+	        Pair2(int cell, int steps) {
+	            this.cell = cell;
+	            this.steps = steps;
+	        }
+	    }
+	    private Pair1 getRowCol(int cell, int n)  {
+	        int row = cell / n;
+	        if(cell % n == 0)
+	            row--;
+	        
+	        int col;
+	        if(row % 2 == 0)
+	            col = (cell % n == 0) ? n - 1 : (cell % n) - 1;
+	        else
+	            col = (cell % n == 0) ? 0 : n - (cell % n);
+	        
+	        row = (n - 1) - row;
+	        
+	        return new Pair1(row, col);
+	        
+	    }
+	    
+	    private int bfs(int[][] board, int n) {
+	        Queue<Pair2> q = new ArrayDeque<>();
+	        Pair1 start = getRowCol(1, n);
+	        if(board[start.row][start.col] != -1) 
+	            q.add(new Pair2(board[start.row][start.col], 0));
+	        else
+	            q.add(new Pair2(1, 0));
+	        
+	        boolean[][] visited = new boolean[n][n];
+	        
+	        int ans = (int)1e9;
+	        while(!q.isEmpty()) {
+	            Pair2 rem = q.remove();
+	            
+	            if(rem.cell == n * n) {
+	                ans = Math.min(ans, rem.steps);
+	                continue;
+	            }
+	            
+	            Pair1 p = getRowCol(rem.cell, n);
+	            if(visited[p.row][p.col])
+	                continue;
+	            visited[p.row][p.col] = true;
+	            
+	            for(int i = 1; i <= 6; i++) {
+	                if(rem.cell + i > n * n)
+	                    break;
+	                Pair1 next = getRowCol(rem.cell + i, n);
+	                
+	                if(board[next.row][next.col] != -1)
+	                    q.add(new Pair2(board[next.row][next.col], rem.steps + 1));
+	                else
+	                    q.add(new Pair2(rem.cell + i, rem.steps + 1));
+	            }
+	        }
+	        
+	        return (ans == (int)1e9) ? -1 : ans;
+	    }
+	    
+	    public int snakesAndLadders(int[][] board) {
+	        int n = board.length;        
+	        return bfs(board, n);
+	    }
 	}
 
 }
