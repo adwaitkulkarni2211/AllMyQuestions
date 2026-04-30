@@ -38,6 +38,9 @@ public class DijkstraAlgo_ShortestPathInWeight {
                 if(dist < minDist[nbr])
                     pq.add(new Pair(nbr, dist));
             }
+            for(ArrayList<ArrayList<Integer>> edge: adj.get(0)) {
+
+            }
         }
         
         return minDist;
